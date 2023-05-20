@@ -9,7 +9,8 @@ export function Providers({ children }) {
     <>
       <RootStyleRegistry>
         <StyledComponentsRegistry>
-          <ConfigProvider theme={theme}>{children}</ConfigProvider>
+          {/* <ConfigProvider theme={theme}>{children}</ConfigProvider> */}
+          {children}
         </StyledComponentsRegistry>
       </RootStyleRegistry>
     </>
