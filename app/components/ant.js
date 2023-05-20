@@ -7,6 +7,21 @@ const Ant = () => {
     <div>
       <DatePicker />
       <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
+      <div></div>
+      <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
+      <div></div>
+      <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
+      <Button type='primary'>Primary Button</Button>
     </div>
   )
 }
