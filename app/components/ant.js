@@ -1,10 +1,11 @@
 'use client'
 import { Button, DatePicker, Divider, Space } from 'antd'
 import React from 'react'
+import { styled } from 'styled-components'
 
 const Ant = () => {
   return (
-    <div>
+    <Wrapper>
       <DatePicker />
       <Button type='primary'>Primary Button</Button>
       <Divider />
@@ -15,8 +16,10 @@ const Ant = () => {
         <Button type='text'>Text Button</Button>
         <Button type='link'>Link Button</Button>
       </Space>
-    </div>
+    </Wrapper>
   )
 }
-
+const Wrapper = styled.div`
+  background-color: pink;
+`
 export default Ant
