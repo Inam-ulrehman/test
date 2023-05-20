@@ -1,5 +1,5 @@
 'use client'
-import { Button, DatePicker, Space } from 'antd'
+import { Button, DatePicker, Divider, Space } from 'antd'
 import React from 'react'
 
 const Ant = () => {
@@ -7,6 +7,7 @@ const Ant = () => {
     <div>
       <DatePicker />
       <Button type='primary'>Primary Button</Button>
+      <Divider />
       <Space wrap>
         <Button type='primary'>Primary Button</Button>
         <Button>Default Button</Button>
