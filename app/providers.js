@@ -1,11 +1,12 @@
 'use client'
 import { ConfigProvider } from 'antd'
-import customTheme from './styles/theme'
+import { theme } from './styles/theme'
+console.log(theme)
 
 export function Providers({ children }) {
   return (
     <>
-      <ConfigProvider>{children}</ConfigProvider>
+      <ConfigProvider theme={theme}>{children}</ConfigProvider>
     </>
   )
 }
