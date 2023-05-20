@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['antd'],
+  // transpilePackages: ['antd'],
 }
 
 module.exports = nextConfig
