@@ -7,11 +7,11 @@ import StyledComponentsRegistry from '@/lib/styles/styledRegistry'
 export function Providers({ children }) {
   return (
     <>
-      <StyledComponentsRegistry>
-        <RootStyleRegistry>
-          <ConfigProvider theme={theme}>{children}</ConfigProvider>
-        </RootStyleRegistry>
-      </StyledComponentsRegistry>
+      {/* <StyledComponentsRegistry> */}
+      <RootStyleRegistry>
+        <ConfigProvider theme={theme}>{children}</ConfigProvider>
+      </RootStyleRegistry>
+      {/* </StyledComponentsRegistry> */}
     </>
   )
 }
