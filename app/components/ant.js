@@ -1,7 +1,7 @@
 'use client'
 import { Button, DatePicker, Divider, Space } from 'antd'
 import React from 'react'
-import { styled } from 'styled-components'
+import styled from 'styled-components'
 
 const Ant = () => {
   return (
