@@ -1,7 +1,13 @@
+import {
+  getItemFromLocalStorage,
+  setItemInLocalStorage,
+} from '@/lib/localStorage/localStorage'
 import { useState, useEffect } from 'react'
 
 const useTheme = () => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+  const [theme, setTheme] = useState(
+    getItemFromLocalStorage('theme') || 'light'
+  )
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light'
@@ -10,7 +16,7 @@ const useTheme = () => {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
-    localStorage.setItem('theme', theme)
+    setItemInLocalStorage('theme', theme)
   }, [theme])
 
   return [theme, toggleTheme]
