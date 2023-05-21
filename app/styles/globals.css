@@ -31,94 +31,22 @@ html {
   --primary-7: #0077b6;
   --primary-8: #023e8a;
   --primary-9: #03045e;
-  /* blue */
-  --blue-05: #edf5ff;
-  --blue-1: #e1efff;
-  --blue-2: #cee4fe;
-  --blue-3: #b7d5f8;
-  --blue-4: #96c1f2;
-  --blue-5: #5ea2ef;
-  --blue-6: #0072f5;
-  --blue-7: #005fcc;
-  --blue-8: #004799;
-  --blue-9: #00254d;
-  /* purple */
-  --purple-05: #f7f2fd;
-  --purple-1: #f1e8fb;
-  --purple-2: #eadcf8;
-  --purple-3: #e0cbf5;
-  --purple-4: #d1b1f0;
-  --purple-5: #bc8ee9;
-  --purple-6: #7828c8;
-  --purple-7: #6622aa;
-  --purple-8: #4d1980;
-  --purple-9: #290e44;
-  /* yellow */
-  --yellow-05: #fef9f0;
-  --yellow-1: #fef5e7;
-  --yellow-2: #fdefd8;
-  --yellow-3: #fce7c5;
-  --yellow-4: #fbdba7;
-  --yellow-5: #f9cb80;
-  --yellow-6: #f5a524;
-  --yellow-7: #b97509;
-  --yellow-8: #925d07;
-  --yellow-9: #4e3104;
-  /* red */
-  --red-05: #fef0f5;
-  --red-1: #fee7ef;
-  --red-2: #fdd8e5;
-  --red-3: #fcc5d8;
-  --red-4: #faa8c5;
-  --red-5: #f881ab;
-  --red-6: #f31260;
-  --red-7: #b80a47;
-  --red-8: #910838;
-  --red-9: ;
-  /* cyan */
-  --cyan-05: #f0fcff;
-  --cyan-1: #e6fafe;
-  --cyan-2: #d7f8fe;
-  --cyan-3: #c3f4fd;
-  --cyan-4: #a5eefd;
-  --cyan-5: #7ee7fc;
-  --cyan-6: #06b7db;
-  --cyan-7: #09aacd;
-  --cyan-8: #0e8aaa;
-  --cyan-9: #053b48;
-  /*  pink*/
-  --pink-05: #fff0fb;
-  --pink-1: #ffe5f8;
-  --pink-2: #ffd6f3;
-  --pink-3: #ffc2ee;
-  --pink-4: #ffa3e5;
-  --pink-5: #ff7ad9;
-  --pink-6: #ff4ecd;
-  --pink-7: #d6009a;
-  --pink-8: #b80084;
-  --pink-9: #4d0037;
-  /* green */
-  --green-05: #f1fdf7;
-  --green-1: #e8fcf1;
-  --green-2: #dafbe8;
-  --green-3: #c8f9dd;
-  --green-4: #adf5cc;
-  --green-5: #88f1b6;
-  --green-6: #17c964;
-  --green-7: #13a452;
-  --green-8: #108944;
-  --green-9: #06371b;
+
   /* grey */
-  --grey-05: #f1f3f5;
-  --grey-1: #eceef0;
-  --grey-2: #e6e8eb;
-  --grey-3: #dfe3e6;
-  --grey-4: #d7dbdf;
-  --grey-5: #c1c8cd;
-  --grey-6: #889096;
-  --grey-7: #7e868c;
-  --grey-8: #687076;
-  --grey-9: #11181c;
+
+  --gray-1: #ffffff;
+  --gray-2: #fafafa;
+  --gray-3: #f5f5f5;
+  --gray-4: #f0f0f0;
+  --gray-5: #d9d9d9;
+  --gray-6: #bfbfbf;
+  --gray-7: #8c8c8c;
+  --gray-8: #595959;
+  --gray-9: #434343;
+  --gray-10: #262626;
+  --gray-11: #1f1f1f;
+  --gray-12: #141414;
+  --gray-13: #000000;
 
   /* rest of the colors */
   --black: #222;
@@ -163,11 +91,11 @@ html {
   --shadow-10: 0 70px 75px -30px rgb(0 0 0 / 0.1),
     0 22px 20px -16px rgb(0 0 0 / 0.1);
 }
-:root[class='dark'] {
-  --background-color: white;
-  --textColor: black;
-}
 
+:root[class='dark'] {
+  --backgroundColor: var(--gray-12);
+  --textColor: white;
+}
 body {
   background: var(--backgroundColor);
   color: var(--textColor);
