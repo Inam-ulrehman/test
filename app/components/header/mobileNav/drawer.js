@@ -23,7 +23,7 @@ const MobileNavbarDrawer = () => {
       </Space>
       <Drawer
         title='Airbnb'
-        placement='right'
+        placement='left'
         width={300}
         onClose={onClose}
         open={open}
@@ -38,7 +38,7 @@ const MobileNavbarDrawer = () => {
 
 const Wrapper = styled.div`
   .menu-button {
-    margin-right: 1rem;
+    margin-left: 1rem;
   }
 `
 export default MobileNavbarDrawer

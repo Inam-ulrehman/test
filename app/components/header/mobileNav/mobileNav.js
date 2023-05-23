@@ -8,10 +8,10 @@ const MobileNav = () => {
   return (
     <Wrapper>
       <div className='container'>
+        <MobileNavbarDrawer />
         <span className='logo'>
           <MobileLogo />
         </span>
-        <MobileNavbarDrawer />
       </div>
     </Wrapper>
   )
@@ -27,7 +27,7 @@ const Wrapper = styled.nav`
 
     position: fixed;
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr;
     border-bottom: 1px solid var(--gray-5);
     padding: 1rem 0;
 
