@@ -6,6 +6,7 @@ import {
   GithubOutlined,
   InstagramOutlined,
   TwitterCircleFilled,
+  YoutubeOutlined,
 } from '@ant-design/icons'
 import Link from 'next/link'
 
@@ -13,6 +14,9 @@ const SocialIcons = () => {
   return (
     <Wrapper>
       <Space wrap>
+        <Link href={'https://www.youtube.com'} target='_blank'>
+          <Button icon={<YoutubeOutlined />}></Button>
+        </Link>
         <Link href={'https://www.twitter.com'} target='_blank'>
           <Button icon={<TwitterCircleFilled />}></Button>
         </Link>
