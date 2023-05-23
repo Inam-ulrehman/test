@@ -1,11 +1,7 @@
-import Image from 'next/image'
-import Ant from './components/ant'
-
 export default function Home() {
   return (
     <main>
-      <h1>hello</h1>
-      <Ant />
+      <h1>Home page</h1>
     </main>
   )
 }

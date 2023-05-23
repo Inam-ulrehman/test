@@ -2,6 +2,8 @@ import './styles/globals.css'
 import 'antd/dist/reset.css'
 import { Inter, Roboto } from 'next/font/google'
 import { Providers } from './providers'
+import Header from './components/header/header'
+import Footer from './components/footer/footer'
 
 const inter = Inter({ subsets: ['latin'] })
 const roboto = Roboto({ subsets: ['latin'], weight: '400' })
@@ -15,7 +17,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={roboto.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   )
