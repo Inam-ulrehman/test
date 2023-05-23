@@ -2,6 +2,7 @@ import { Button, Drawer, Space } from 'antd'
 import { useState } from 'react'
 import { MenuOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
+import NavMenu from './drawer-NavMenu'
 const MobileNavbarDrawer = () => {
   const [open, setOpen] = useState(false)
 
@@ -28,9 +29,7 @@ const MobileNavbarDrawer = () => {
         onClose={onClose}
         open={open}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <NavMenu setOpen={setOpen} />
       </Drawer>
     </Wrapper>
   )
