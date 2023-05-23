@@ -21,6 +21,7 @@ const Wrapper = styled.div`
     font-size: x-large;
     font-weight: 500;
     letter-spacing: 2px;
+    padding-left: 1rem;
   }
 `
 export default DesktopLogo

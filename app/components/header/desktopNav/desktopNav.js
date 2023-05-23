@@ -6,6 +6,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import DesktopLogo from './desktopLogo'
 import { UserOutlined, LoginOutlined, UserAddOutlined } from '@ant-design/icons'
+import SocialIcons from './desktopSocialIcons'
 const items = [
   {
     label: <Link href={'/'}>Home</Link>,
@@ -24,6 +25,7 @@ const items = [
     label: <Link href={'/contact'}>Contact</Link>,
     key: 'Contact',
   },
+  // login
   {
     label: 'Member',
     key: 'Login',
@@ -50,29 +52,36 @@ const DesktopNav = () => {
   }
   return (
     <Wrapper>
-      <DesktopLogo />
-      <Menu
-        onClick={onClick}
-        selectedKeys={[current]}
-        mode='horizontal'
-        items={items}
-      />
+      <div className='logo-menu'>
+        <DesktopLogo />
+        <Menu
+          onClick={onClick}
+          selectedKeys={[current]}
+          mode='horizontal'
+          items={items}
+        />
+      </div>
+      <SocialIcons />
     </Wrapper>
   )
 }
 
 const Wrapper = styled.nav`
-  /* mobile ipad only */
-  /* border-bottom: 2px solid black; */
   border-bottom: 1px solid var(--gray-5);
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: space-between;
+  .logo-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  .ant-menu {
-    min-width: 420px;
+    .ant-menu {
+      min-width: 420px;
+    }
   }
 
+  /* mobile ipad only */
   @media (max-width: 992px) {
     display: none;
   }
