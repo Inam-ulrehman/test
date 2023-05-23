@@ -1,5 +1,5 @@
 import dbConnect from '@/lib/dbConnect'
-import mongooseErrorHandler from '@/lib/mongoose-error-handler'
+import mongooseErrorHandler from '@/lib/errors/mongoose-error-handler'
 import Sample from '@/public/models/Sample'
 import { StatusCodes } from 'http-status-codes'
 export async function GET(request, res) {
