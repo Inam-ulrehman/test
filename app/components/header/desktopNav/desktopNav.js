@@ -52,35 +52,44 @@ const DesktopNav = () => {
   }
   return (
     <Wrapper>
-      <div className='logo-menu'>
-        <DesktopLogo />
-        <Menu
-          onClick={onClick}
-          selectedKeys={[current]}
-          mode='horizontal'
-          items={items}
-        />
+      <div className='container'>
+        <div className='logo-menu'>
+          <DesktopLogo />
+          <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode='horizontal'
+            items={items}
+          />
+        </div>
+        <SocialIcons />
       </div>
-      <SocialIcons />
     </Wrapper>
   )
 }
 
 const Wrapper = styled.nav`
-  border-bottom: 1px solid var(--gray-5);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  .logo-menu {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  height: 2.9rem;
+  width: 100%;
 
-    .ant-menu {
-      min-width: 420px;
+  .container {
+    position: fixed;
+    width: 100%;
+    background-color: var(--white);
+    border-bottom: 1px solid var(--gray-5);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    .logo-menu {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .ant-menu {
+        min-width: 420px;
+      }
     }
   }
-
   /* mobile ipad only */
   @media (max-width: 992px) {
     display: none;
