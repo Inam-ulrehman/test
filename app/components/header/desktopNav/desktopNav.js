@@ -28,7 +28,7 @@ const items = [
   // login
   {
     label: 'Member',
-    key: 'Login',
+    key: 'Member',
     icon: <UserOutlined />,
     children: [
       {
