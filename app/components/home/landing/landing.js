@@ -1,10 +1,11 @@
 'use client'
+import { Typography } from 'antd'
 import styled from 'styled-components'
-
+const { Title } = Typography
 const Landing = () => {
   return (
     <Wrapper>
-      <h1>Home Page</h1>
+      <Title>Home page</Title>
     </Wrapper>
   )
 }
