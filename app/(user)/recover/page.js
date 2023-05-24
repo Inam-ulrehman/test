@@ -1,6 +1,6 @@
 'use client'
-import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Checkbox, Form, Input, Typography } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
+import { Button, Form, Input, Typography } from 'antd'
 import Link from 'next/link'
 import styled from 'styled-components'
 const { Title, Paragraph } = Typography
@@ -10,7 +10,7 @@ const Login = () => {
   }
   return (
     <Wrapper>
-      <Title>Login</Title>
+      <Title>Recover Password</Title>
 
       <Form
         name='normal_login'
@@ -20,57 +20,32 @@ const Login = () => {
         }}
         onFinish={onFinish}
       >
-        <Paragraph>To continue to your account</Paragraph>
+        <Paragraph className='recover-text' strong>
+          Enter your recovery email
+        </Paragraph>
         <Form.Item
-          name='email'
+          name='username'
           rules={[
             {
               required: true,
-              message: 'Please input your Email!',
+              message: 'Please input your Username!',
             },
           ]}
         >
           <Input
             prefix={<UserOutlined className='site-form-item-icon' />}
             placeholder='User Email'
-            type='email'
           />
         </Form.Item>
-        <Form.Item
-          name='password'
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Password!',
-            },
-            { min: 8, message: 'Minimum 8 Characters!' },
-          ]}
-        >
-          <Input
-            prefix={<LockOutlined className='site-form-item-icon' />}
-            type='password'
-            placeholder='Password'
-          />
-        </Form.Item>
-        <Form.Item>
-          <Form.Item name='remember' valuePropName='checked' noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-
-          <Link className='login-form-forgot' href='/recover'>
-            Forgot password
-          </Link>
-        </Form.Item>
-
         <Form.Item>
           <Button
             type='primary'
             htmlType='submit'
             className='login-form-button'
           >
-            Log in
+            Submit
           </Button>
-          Or <Link href='/register'>register now!</Link>
+          Or <Link href='/login'>Login now!</Link>
         </Form.Item>
       </Form>
     </Wrapper>
