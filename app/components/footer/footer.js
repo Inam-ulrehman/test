@@ -1,13 +1,32 @@
-import React from 'react'
+'use client'
+import styled from 'styled-components'
 import CopyRight from './copyright'
+import QuickLinks from './quicklinks'
+import SocialMedia from './socialmedia'
+import Address from './address'
 
 const Footer = () => {
   return (
-    <footer>
-      footer
+    <Wrapper>
+      <div className='footer-container'>
+        <QuickLinks />
+        <SocialMedia />
+        <Address />
+      </div>
       <CopyRight />
-    </footer>
+    </Wrapper>
   )
 }
-
+const Wrapper = styled.footer`
+  .footer-container {
+    padding: 1rem;
+  }
+  @media (min-width: 992px) {
+    border-top: 2px solid var(--gray-5);
+    .footer-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+`
 export default Footer
