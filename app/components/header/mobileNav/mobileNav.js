@@ -24,7 +24,7 @@ const Wrapper = styled.nav`
     background-color: white;
     min-height: 4rem;
     width: 100%;
-
+    z-index: 1;
     position: fixed;
     display: grid;
     grid-template-columns: auto 1fr;

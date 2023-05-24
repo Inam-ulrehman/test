@@ -74,6 +74,7 @@ const Wrapper = styled.nav`
 
   .container {
     position: fixed;
+    z-index: 10;
     width: 100%;
     background-color: var(--white);
     border-bottom: 1px solid var(--gray-5);
