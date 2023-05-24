@@ -13,14 +13,14 @@ const Login = () => {
       <Title>Login</Title>
 
       <Form
-        name='normal_login'
+        name='login'
         className='login-form'
         initialValues={{
           remember: true,
         }}
         onFinish={onFinish}
       >
-        <Paragraph>To continue to your account</Paragraph>
+        <Paragraph>Login to continue to your account</Paragraph>
         <Form.Item
           name='email'
           rules={[

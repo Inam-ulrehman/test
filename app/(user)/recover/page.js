@@ -24,17 +24,18 @@ const Login = () => {
           Enter your recovery email
         </Paragraph>
         <Form.Item
-          name='username'
+          name='email'
           rules={[
             {
               required: true,
-              message: 'Please input your Username!',
+              message: 'Please input your Email!',
             },
           ]}
         >
           <Input
             prefix={<UserOutlined className='site-form-item-icon' />}
             placeholder='User Email'
+            type='email'
           />
         </Form.Item>
         <Form.Item>
