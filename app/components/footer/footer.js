@@ -18,11 +18,11 @@ const Footer = () => {
   )
 }
 const Wrapper = styled.footer`
+  border-top: 2px solid var(--gray-5);
   .footer-container {
     padding: 1rem;
   }
   @media (min-width: 992px) {
-    border-top: 2px solid var(--gray-5);
     .footer-container {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
