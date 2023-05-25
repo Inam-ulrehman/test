@@ -5,47 +5,33 @@ import { Menu } from 'antd'
 import { useState } from 'react'
 import Link from 'next/link'
 import DesktopLogo from './desktopLogo'
-import { UserOutlined, LoginOutlined, UserAddOutlined } from '@ant-design/icons'
+
 import SocialIcons from './desktopSocialIcons'
+import Member from './member'
+import { usePathname, useSearchParams } from 'next/navigation'
+
 const items = [
   {
     label: <Link href={'/'}>Home</Link>,
-    key: 'Home',
+    key: '/',
   },
   {
     label: <Link href={'/about'}>About</Link>,
     label: <Link href={'/samples'}>Samples</Link>,
-    key: 'SubMenu',
+    key: '/samples',
   },
   {
     label: <Link href={'/about'}>About</Link>,
-    key: 'About',
+    key: '/about',
   },
   {
     label: <Link href={'/contact'}>Contact</Link>,
-    key: 'Contact',
-  },
-  // login
-  {
-    label: 'Member',
-    key: 'Member',
-    icon: <UserOutlined />,
-    children: [
-      {
-        label: <Link href={'/login'}>Login</Link>,
-        key: 'Login',
-        icon: <LoginOutlined />,
-      },
-      {
-        label: <Link href={'/register'}>Register</Link>,
-        key: 'Register',
-        icon: <UserAddOutlined />,
-      },
-    ],
+    key: '/contact',
   },
 ]
 const DesktopNav = () => {
-  const [current, setCurrent] = useState('mail')
+  const path = usePathname()
+  const [current, setCurrent] = useState(path)
   const onClick = (e) => {
     // console.log('click ', e)
     setCurrent(e.key)
@@ -62,6 +48,7 @@ const DesktopNav = () => {
             items={items}
           />
         </div>
+        <Member />
         <SocialIcons />
       </div>
     </Wrapper>
@@ -79,7 +66,7 @@ const Wrapper = styled.nav`
     background-color: var(--white);
     border-bottom: 1px solid var(--gray-5);
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     align-items: center;
     .logo-menu {
       display: flex;
@@ -87,7 +74,7 @@ const Wrapper = styled.nav`
       justify-content: space-between;
 
       .ant-menu {
-        min-width: 420px;
+        min-width: 305px;
       }
     }
   }

@@ -7,6 +7,7 @@ const initialState = {
   name: '',
   email: '',
   password: '',
+  isMember: false,
   isLoading: false,
 }
 export const usersThunk = createAsyncThunk(
