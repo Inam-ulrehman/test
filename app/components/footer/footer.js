@@ -19,6 +19,9 @@ const Footer = () => {
 }
 const Wrapper = styled.footer`
   border-top: 2px solid var(--gray-5);
+  a {
+    color: var(--black);
+  }
   .footer-container {
     padding: 1rem;
   }
