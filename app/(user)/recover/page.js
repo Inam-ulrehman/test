@@ -1,4 +1,5 @@
 'use client'
+import { customFetch } from '@/lib/axios/customFetch'
 import { UserOutlined } from '@ant-design/icons'
 
 import { Button, Form, Input, Typography } from 'antd'
@@ -6,8 +7,13 @@ import Link from 'next/link'
 import styled from 'styled-components'
 const { Title, Paragraph } = Typography
 const Login = () => {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values)
+  const onFinish = async (values) => {
+    try {
+      const response = await customFetch.post('user/recover', values)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <Wrapper>
