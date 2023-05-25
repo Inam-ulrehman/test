@@ -2,17 +2,31 @@
 import { customFetch } from '@/lib/axios/customFetch'
 import { UserOutlined } from '@ant-design/icons'
 
-import { Button, Form, Input, Typography } from 'antd'
+import { App, Button, Form, Input, Typography } from 'antd'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import styled from 'styled-components'
 const { Title, Paragraph } = Typography
 const Login = () => {
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const { notification } = App.useApp()
   const onFinish = async (values) => {
     try {
+      setLoading(true)
       const response = await customFetch.post('user/recover', values)
-      console.log(response)
+      notification.success({
+        message: 'Success',
+        description: response.data.msg,
+      })
+      setLoading(false)
     } catch (error) {
-      console.log(error)
+      setLoading(false)
+      notification.error({
+        message: 'Error',
+        description: error.response?.data?.msg,
+      })
     }
   }
   return (
@@ -51,6 +65,7 @@ const Login = () => {
             type='primary'
             htmlType='submit'
             className='login-form-button'
+            loading={loading}
           >
             Submit
           </Button>

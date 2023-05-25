@@ -5,7 +5,7 @@ const Email = (user, token) => {
     to: user.email,
     from: {
       email: 'no-replay@inamwebsolutions.com',
-      name: 'Car Sell',
+      name: 'Inam web solutions',
     },
     subject: `Password recovery`,
     // text: '',
