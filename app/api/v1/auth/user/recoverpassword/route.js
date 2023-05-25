@@ -13,6 +13,7 @@ export async function POST(request, res) {
   const { password } = body
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
+
   try {
     const user = await User.findOneAndUpdate(
       { _id },
