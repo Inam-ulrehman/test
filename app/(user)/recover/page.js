@@ -1,5 +1,6 @@
 'use client'
 import { UserOutlined } from '@ant-design/icons'
+
 import { Button, Form, Input, Typography } from 'antd'
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -36,6 +37,7 @@ const Login = () => {
             prefix={<UserOutlined className='site-form-item-icon' />}
             placeholder='User Email'
             type='email'
+            size='large'
           />
         </Form.Item>
         <Form.Item>
@@ -79,6 +81,18 @@ const Wrapper = styled.div`
   /* #components-form-demo-normal-login */
   .login-form-button {
     width: 100%;
+  }
+  /* mobile */
+  @media (max-width: 768px) {
+    .ant-form {
+      min-width: 90vw;
+    }
+  }
+  /* ipad laptop */
+  @media (min-width: 768px) {
+    .ant-form {
+      min-width: 40vw;
+    }
   }
 `
 export default Login

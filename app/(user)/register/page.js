@@ -1,5 +1,5 @@
 'use client'
-import { LockOutlined, UserOutlined } from '@ant-design/icons'
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { Button, Checkbox, Form, Input, Typography } from 'antd'
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -32,6 +32,7 @@ const Register = () => {
           <Input
             prefix={<UserOutlined className='site-form-item-icon' />}
             placeholder='Name'
+            size='large'
           />
         </Form.Item>
         <Form.Item
@@ -44,9 +45,10 @@ const Register = () => {
           ]}
         >
           <Input
-            prefix={<UserOutlined className='site-form-item-icon' />}
+            prefix={<MailOutlined className='site-form-item-icon' />}
             placeholder='Email'
             type='email'
+            size='large'
           />
         </Form.Item>
         <Form.Item
@@ -79,6 +81,7 @@ const Register = () => {
           <Input.Password
             prefix={<LockOutlined className='site-form-item-icon' />}
             placeholder='Password'
+            size='large'
           />
         </Form.Item>
 
@@ -106,6 +109,7 @@ const Register = () => {
           <Input.Password
             prefix={<LockOutlined className='site-form-item-icon' />}
             placeholder='Confirm Password'
+            size='large'
           />
         </Form.Item>
 
@@ -160,6 +164,18 @@ const Wrapper = styled.div`
   /* #components-form-demo-normal-login */
   .login-form-button {
     width: 100%;
+  }
+  /* mobile */
+  @media (max-width: 768px) {
+    .ant-form {
+      min-width: 90vw;
+    }
+  }
+  /* ipad laptop */
+  @media (min-width: 768px) {
+    .ant-form {
+      min-width: 40vw;
+    }
   }
 `
 export default Register

@@ -134,5 +134,17 @@ const Wrapper = styled.div`
   .login-form-button {
     width: 100%;
   }
+  /* mobile */
+  @media (max-width: 768px) {
+    .ant-form {
+      min-width: 90vw;
+    }
+  }
+  /* ipad laptop */
+  @media (min-width: 768px) {
+    .ant-form {
+      min-width: 40vw;
+    }
+  }
 `
 export default Login
