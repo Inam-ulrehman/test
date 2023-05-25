@@ -4,12 +4,11 @@ import { UserOutlined } from '@ant-design/icons'
 
 import { App, Button, Form, Input, Typography } from 'antd'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+
 import { useState } from 'react'
 import styled from 'styled-components'
 const { Title, Paragraph } = Typography
 const Login = () => {
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const { notification } = App.useApp()
   const onFinish = async (values) => {
