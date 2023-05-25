@@ -2,7 +2,7 @@
 
 import { customFetch } from '@/lib/axios/customFetch'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Checkbox, Form, Input, Typography } from 'antd'
+import { App, Button, Checkbox, Form, Input, Typography } from 'antd'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -12,6 +12,7 @@ import styled from 'styled-components'
 const { Title, Paragraph } = Typography
 
 const Login = () => {
+  const { notification } = App.useApp()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
@@ -22,10 +23,16 @@ const Login = () => {
       const { msg, token } = response.data
       Cookies.set('Authorization_Token', token, { expires: 7 })
       setLoading(false)
+      notification.info({
+        message: msg,
+      })
       router.refresh()
     } catch (error) {
+      notification.error({
+        message: error.response?.data?.msg,
+        description: 'Please try different Password!',
+      })
       setLoading(false)
-      console.log(error)
     }
   }
   return (
@@ -54,6 +61,7 @@ const Login = () => {
             prefix={<UserOutlined className='site-form-item-icon' />}
             placeholder='User Email'
             type='email'
+            size='large'
           />
         </Form.Item>
         <Form.Item
@@ -70,6 +78,7 @@ const Login = () => {
             prefix={<LockOutlined className='site-form-item-icon' />}
             type='password'
             placeholder='Password'
+            size='large'
           />
         </Form.Item>
         <Form.Item>
