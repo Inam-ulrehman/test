@@ -5,15 +5,18 @@ import { App, Button, Checkbox, Form, Input, Typography } from 'antd'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import styled from 'styled-components'
 const { Title } = Typography
 
 const Register = () => {
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { notification } = App.useApp()
 
   const onFinish = async (values) => {
     try {
+      setLoading(true)
       const response = await customFetch.post('/user/register', values)
       const { msg, result, token } = response.data
 
@@ -22,7 +25,15 @@ const Register = () => {
         message: msg,
       })
       router.refresh()
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
+      if (error.response.data.msg.startsWith('Duplicate')) {
+        return notification.error({
+          message: 'Error Registering!',
+          description: 'Email is already register.',
+        })
+      }
       notification.error({
         message: 'Error Registering!',
         description: error.response?.data?.msg,
@@ -145,6 +156,7 @@ const Register = () => {
 
         <Form.Item>
           <Button
+            loading={loading}
             type='primary'
             htmlType='submit'
             className='login-form-button'
