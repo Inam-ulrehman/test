@@ -1,13 +1,33 @@
 'use client'
+import { customFetch } from '@/lib/axios/customFetch'
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Checkbox, Form, Input, Typography } from 'antd'
+import { App, Button, Checkbox, Form, Input, Typography } from 'antd'
+import Cookies from 'js-cookie'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import styled from 'styled-components'
-const { Title, Paragraph } = Typography
+const { Title } = Typography
 
 const Register = () => {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values)
+  const router = useRouter()
+  const { notification } = App.useApp()
+
+  const onFinish = async (values) => {
+    try {
+      const response = await customFetch.post('/user/register', values)
+      const { msg, result, token } = response.data
+
+      Cookies.set('Authorization_Token', token, { expires: 7 })
+      notification.success({
+        message: msg,
+      })
+      router.refresh()
+    } catch (error) {
+      notification.error({
+        message: 'Error Registering!',
+        description: error.response?.data?.msg,
+      })
+    }
   }
   return (
     <Wrapper>

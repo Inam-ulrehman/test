@@ -22,11 +22,11 @@ const Login = () => {
       const response = await customFetch.post('/user/login', values)
       const { msg, token } = response.data
       Cookies.set('Authorization_Token', token, { expires: 7 })
-      setLoading(false)
-      notification.info({
+      notification.success({
         message: msg,
       })
       router.refresh()
+      setLoading(false)
     } catch (error) {
       notification.error({
         message: error.response?.data?.msg,
