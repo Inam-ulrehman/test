@@ -1,5 +1,5 @@
 'use client'
-import { ConfigProvider } from 'antd'
+import { App, ConfigProvider } from 'antd'
 import { theme } from './styles/theme'
 import { RootStyleRegistry } from '@/lib/styles/antRegistry'
 import StyledComponentsRegistry from '@/lib/styles/styledRegistry'
@@ -12,7 +12,9 @@ export function Providers({ children }) {
       <StyledComponentsRegistry>
         <RootStyleRegistry>
           <ConfigProvider theme={theme}>
-            <Provider store={store}>{children}</Provider>
+            <Provider store={store}>
+              <App>{children}</App>
+            </Provider>
           </ConfigProvider>
         </RootStyleRegistry>
       </StyledComponentsRegistry>
