@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { MenuOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 import NavMenu from './drawer-NavMenu'
-const MobileNavbarDrawer = () => {
+const MobileNavbarDrawer = ({ isMember }) => {
   const [open, setOpen] = useState(false)
 
   const showDrawer = () => {
@@ -29,7 +29,7 @@ const MobileNavbarDrawer = () => {
         onClose={onClose}
         open={open}
       >
-        <NavMenu setOpen={setOpen} />
+        <NavMenu setOpen={setOpen} isMember={isMember} />
       </Drawer>
     </Wrapper>
   )

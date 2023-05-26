@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons'
 import { Menu } from 'antd'
 import styled from 'styled-components'
+import Member from './member'
 const items = [
   {
     label: <Link href={'/'}>Home</Link>,
@@ -32,26 +33,8 @@ const items = [
     key: 'Contact',
     icon: <WhatsAppOutlined />,
   },
-  // login
-  {
-    label: 'Member',
-    key: 'Member',
-    icon: <UserOutlined />,
-    children: [
-      {
-        label: <Link href={'/login'}>Login</Link>,
-        key: 'Login',
-        icon: <LoginOutlined />,
-      },
-      {
-        label: <Link href={'/register'}>Register</Link>,
-        key: 'Register',
-        icon: <UserAddOutlined />,
-      },
-    ],
-  },
 ]
-const NavMenu = ({ setOpen }) => {
+const NavMenu = ({ setOpen, isMember }) => {
   const [current, setCurrent] = useState('mail')
   const onClick = (e) => {
     // console.log('click ', e)
@@ -66,6 +49,7 @@ const NavMenu = ({ setOpen }) => {
         mode='inline'
         items={items}
       />
+      <Member setOpen={setOpen} isMember={isMember} />
     </Wrapper>
   )
 }

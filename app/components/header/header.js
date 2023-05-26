@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <header>
       <DesktopNav isMember={isMember} />
-      <MobileNav />
+      <MobileNav isMember={isMember} />
     </header>
   )
 }
