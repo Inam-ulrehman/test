@@ -1,4 +1,5 @@
 'use client'
+import { getStateValues } from '@/features/users/usersSlice'
 import { customFetch } from '@/lib/axios/customFetch'
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons'
 import { App, Button, Checkbox, Form, Input, Typography } from 'antd'
@@ -6,10 +7,12 @@ import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 const { Title } = Typography
 
 const Register = () => {
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { notification } = App.useApp()
@@ -25,6 +28,7 @@ const Register = () => {
         message: msg,
       })
       router.refresh()
+      dispatch(getStateValues({ name: 'isMember', value: true }))
       setLoading(false)
     } catch (error) {
       setLoading(false)

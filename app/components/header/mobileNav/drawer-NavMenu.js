@@ -34,7 +34,7 @@ const items = [
     icon: <WhatsAppOutlined />,
   },
 ]
-const NavMenu = ({ setOpen, isMember }) => {
+const NavMenu = ({ setOpen }) => {
   const [current, setCurrent] = useState('mail')
   const onClick = (e) => {
     // console.log('click ', e)
@@ -49,7 +49,7 @@ const NavMenu = ({ setOpen, isMember }) => {
         mode='inline'
         items={items}
       />
-      <Member setOpen={setOpen} isMember={isMember} />
+      <Member setOpen={setOpen} />
     </Wrapper>
   )
 }

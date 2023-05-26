@@ -4,11 +4,11 @@ import styled from 'styled-components'
 import MobileNavbarDrawer from './drawer'
 import MobileLogo from './mobileLogo'
 
-const MobileNav = ({ isMember }) => {
+const MobileNav = () => {
   return (
     <Wrapper>
       <div className='container'>
-        <MobileNavbarDrawer isMember={isMember} />
+        <MobileNavbarDrawer />
         <span className='logo'>
           <MobileLogo />
         </span>

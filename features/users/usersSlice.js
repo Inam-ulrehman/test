@@ -7,7 +7,7 @@ const initialState = {
   name: '',
   email: '',
   password: '',
-  isMember: false,
+  isMember: Cookies.get('Authorization_Token') ? true : false,
   isLoading: false,
 }
 export const usersThunk = createAsyncThunk(

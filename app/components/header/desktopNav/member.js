@@ -1,12 +1,17 @@
+import { getStateValues } from '@/features/users/usersSlice'
 import { LoginOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-const Member = ({ isMember }) => {
+const Member = () => {
+  const { users } = useSelector((state) => state)
+  const dispatch = useDispatch()
+  const { isMember } = users
   const login = [
     {
       label: 'Member',
@@ -53,6 +58,7 @@ const Member = ({ isMember }) => {
     if (e.key === 'logout') {
       Cookies.remove('Authorization_Token')
       router.refresh()
+      dispatch(getStateValues({ name: 'isMember', value: false }))
     }
     setCurrent(e.key)
   }

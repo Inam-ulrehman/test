@@ -29,7 +29,7 @@ const items = [
     key: '/contact',
   },
 ]
-const DesktopNav = ({ isMember }) => {
+const DesktopNav = () => {
   const path = usePathname()
   const [current, setCurrent] = useState(path)
   const onClick = (e) => {
@@ -48,7 +48,7 @@ const DesktopNav = ({ isMember }) => {
             items={items}
           />
         </div>
-        <Member isMember={isMember} />
+        <Member />
         <SocialIcons />
       </div>
     </Wrapper>
