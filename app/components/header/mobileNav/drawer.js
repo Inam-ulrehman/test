@@ -23,6 +23,7 @@ const MobileNavbarDrawer = ({ isMember }) => {
         ></Button>
       </Space>
       <Drawer
+        bodyStyle={{ padding: '0' }}
         title='Airbnb'
         placement='left'
         width={300}
@@ -38,6 +39,10 @@ const MobileNavbarDrawer = ({ isMember }) => {
 const Wrapper = styled.div`
   .menu-button {
     margin-left: 1rem;
+  }
+  .ant-drawer {
+    background-color: pink !important;
+    display: none;
   }
 `
 export default MobileNavbarDrawer
