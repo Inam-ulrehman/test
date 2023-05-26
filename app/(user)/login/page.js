@@ -142,6 +142,9 @@ const Wrapper = styled.div`
   }
   /* ipad  */
   @media (min-width: 768px) {
+    .login-form {
+      padding: 4rem;
+    }
     .ant-form {
       min-width: 60vw;
     }
@@ -149,7 +152,7 @@ const Wrapper = styled.div`
   /*  laptop */
   @media (min-width: 992px) {
     .ant-form {
-      min-width: 40vw;
+      min-width: 50vw;
     }
   }
 `
