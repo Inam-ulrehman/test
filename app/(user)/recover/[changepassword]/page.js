@@ -148,7 +148,7 @@ const Wrapper = styled.div`
     border: 1px solid var(--gray-5);
     border-radius: 5px;
 
-    padding: 2rem 4rem;
+    padding: 1rem;
   }
   /* #components-form-demo-normal-login */
   .login-form-forgot {
@@ -168,8 +168,14 @@ const Wrapper = styled.div`
       min-width: 90vw;
     }
   }
-  /* ipad laptop */
+  /* ipad  */
   @media (min-width: 768px) {
+    .ant-form {
+      min-width: 60vw;
+    }
+  }
+  /*  laptop */
+  @media (min-width: 992px) {
     .ant-form {
       min-width: 40vw;
     }
