@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import * as jose from 'jose'
 const UserSchema = new mongoose.Schema(
   {
-    firstName: {
+    name: {
       type: String,
       required: [true, 'Please provide name'],
       maxlength: 50,

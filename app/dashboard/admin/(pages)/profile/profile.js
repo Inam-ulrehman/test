@@ -27,7 +27,7 @@ const Profile = () => {
         }}
         initialValues={{
           remember: true,
-          firstName: 'hello',
+          name: 'hello',
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -36,7 +36,7 @@ const Profile = () => {
         {/* first name */}
         <Form.Item
           label='First Name'
-          name='firstName'
+          name='name'
           rules={[
             {
               required: true,
