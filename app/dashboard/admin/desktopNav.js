@@ -1,11 +1,34 @@
+import { Button } from 'antd'
+import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
 
 const DesktopNav = () => {
-  return <Wrapper>DesktopNav</Wrapper>
+  return (
+    <Wrapper>
+      <Link href={'/dashboard/admin'}>
+        <Button type='text' block>
+          Dashboard
+        </Button>
+      </Link>
+      <Link href={'/dashboard/admin/profile'}>
+        <Button type='text' block>
+          Profile
+        </Button>
+      </Link>
+      <Link href={'/dashboard/admin/samples'}>
+        <Button type='text' block>
+          Samples
+        </Button>
+      </Link>
+    </Wrapper>
+  )
 }
 const Wrapper = styled.div`
   position: sticky;
   top: 8.5%;
+  button {
+    text-align: start;
+  }
 `
 export default DesktopNav

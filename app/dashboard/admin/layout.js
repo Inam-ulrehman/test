@@ -27,8 +27,6 @@ const Wrapper = styled.div`
     border-right: 1px solid var(--gray-5);
   }
   .mobile-nav {
-    background-color: pink;
-    min-height: 2.2rem;
   }
   @media (max-width: 920px) {
     .desktop-nav {
