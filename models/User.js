@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import * as jose from 'jose'
 const UserSchema = new mongoose.Schema(
   {
-    name: {
+    firstName: {
       type: String,
       required: [true, 'Please provide name'],
       maxlength: 50,
@@ -20,11 +20,10 @@ const UserSchema = new mongoose.Schema(
     gender: {
       type: String,
       enum: ['male', 'female', 'other'],
-      default: 'male',
       lowercase: true,
       trim: true,
     },
-    dateOfBirth: {
+    dob: {
       type: Date,
       trim: true,
     },
