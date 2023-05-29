@@ -26,12 +26,13 @@ const Register = () => {
       Cookies.set('Authorization_Token', token, { expires: 7 })
 
       dispatch(getStateValues({ name: 'isMember', value: true }))
+      window.location.reload()
       setLoading(false)
-      notification.success({
-        message: msg,
-      })
+
       setTimeout(function () {
-        window.location.reload()
+        notification.success({
+          message: msg,
+        })
       }, 2000)
     } catch (error) {
       setLoading(false)

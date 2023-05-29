@@ -26,15 +26,14 @@ const Login = () => {
       const { msg, token } = response.data
       Cookies.set('Authorization_Token', token, { expires: 7 })
 
-      setLoading(false)
+      window.location.reload()
       dispatch(getStateValues({ name: 'isMember', value: true }))
-      notification.success({
-        message: msg,
-      })
-
       setTimeout(function () {
-        window.location.reload()
+        notification.success({
+          message: msg,
+        })
       }, 2000)
+      setLoading(false)
     } catch (error) {
       notification.error({
         message: error.response?.data?.msg,
