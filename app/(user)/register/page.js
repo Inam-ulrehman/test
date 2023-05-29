@@ -24,12 +24,15 @@ const Register = () => {
       const { msg, result, token } = response.data
 
       Cookies.set('Authorization_Token', token, { expires: 7 })
-      window.location.reload()
+
       dispatch(getStateValues({ name: 'isMember', value: true }))
       setLoading(false)
       notification.success({
         message: msg,
       })
+      setTimeout(function () {
+        window.location.reload()
+      }, 2000)
     } catch (error) {
       setLoading(false)
       if (error.response.data.msg.startsWith('Duplicate')) {
