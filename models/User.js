@@ -17,6 +17,32 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
+    mobile: {
+      type: String,
+      maxlength: 50,
+    },
+    email: {
+      type: String,
+      required: [true, 'Please provide email'],
+      match: [
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        'Please provide a valid email',
+      ],
+      unique: true,
+      lowercase: true,
+      trim: true,
+      maxlength: 100,
+      minlength: 8,
+    },
+    password: {
+      type: String,
+      required: [true, 'Please provide password'],
+      minlength: 8,
+    },
+    role: {
+      type: String,
+      default: 'user',
+    },
     gender: {
       type: String,
       enum: ['male', 'female', 'other'],
@@ -68,32 +94,6 @@ const UserSchema = new mongoose.Schema(
       maxlength: 50,
       lowercase: true,
       trim: true,
-    },
-    mobile: {
-      type: Number,
-      maxlength: 50,
-    },
-    email: {
-      type: String,
-      required: [true, 'Please provide email'],
-      match: [
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        'Please provide a valid email',
-      ],
-      unique: true,
-      lowercase: true,
-      trim: true,
-      maxlength: 50,
-      minlength: 8,
-    },
-    password: {
-      type: String,
-      required: [true, 'Please provide password'],
-      minlength: 6,
-    },
-    role: {
-      type: String,
-      default: 'user',
     },
 
     recoveryToken: {
