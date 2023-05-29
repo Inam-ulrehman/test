@@ -28,7 +28,7 @@ const Login = () => {
       notification.success({
         message: msg,
       })
-      router.refresh()
+      window.location.reload()
       setLoading(false)
       dispatch(getStateValues({ name: 'isMember', value: true }))
     } catch (error) {

@@ -43,9 +43,8 @@ export const usersThunk = createAsyncThunk(
 export const usersGetProfileThunk = createAsyncThunk(
   'users/usersGetProfileThunk',
   async (_, thunkAPI) => {
-    const token = Cookies.get('Authorization_Token')
     try {
-      const response = await customFetch.get('auth/user/getprofile', token)
+      const response = await customFetch.get('auth/user/getprofile')
 
       return response.data
     } catch (error) {
@@ -57,13 +56,8 @@ export const usersGetProfileThunk = createAsyncThunk(
 export const usersUpdateProfileThunk = createAsyncThunk(
   'users/usersUpdateProfileThunk',
   async (user, thunkAPI) => {
-    const token = Cookies.get('Authorization_Token')
     try {
-      const response = await customFetch.post(
-        'auth/user/updateprofile',
-        user,
-        token
-      )
+      const response = await customFetch.post('auth/user/updateprofile', user)
       return response.data
     } catch (error) {
       console.log(error)

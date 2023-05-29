@@ -27,7 +27,7 @@ const Register = () => {
       notification.success({
         message: msg,
       })
-      router.refresh()
+      window.location.reload()
       dispatch(getStateValues({ name: 'isMember', value: true }))
       setLoading(false)
     } catch (error) {
