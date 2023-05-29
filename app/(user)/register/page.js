@@ -28,12 +28,6 @@ const Register = () => {
       dispatch(getStateValues({ name: 'isMember', value: true }))
       window.location.reload()
       setLoading(false)
-
-      setTimeout(function () {
-        notification.success({
-          message: msg,
-        })
-      }, 2000)
     } catch (error) {
       setLoading(false)
       if (error.response.data.msg.startsWith('Duplicate')) {
