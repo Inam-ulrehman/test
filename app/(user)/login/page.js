@@ -25,12 +25,12 @@ const Login = () => {
       const response = await customFetch.post('/user/login', values)
       const { msg, token } = response.data
       Cookies.set('Authorization_Token', token, { expires: 7 })
-      notification.success({
-        message: msg,
-      })
       window.location.reload()
       setLoading(false)
       dispatch(getStateValues({ name: 'isMember', value: true }))
+      notification.success({
+        message: msg,
+      })
     } catch (error) {
       notification.error({
         message: error.response?.data?.msg,
