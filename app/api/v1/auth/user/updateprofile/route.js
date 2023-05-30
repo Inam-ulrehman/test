@@ -5,7 +5,7 @@ import User from '@/models/User'
 import { StatusCodes } from 'http-status-codes'
 import { headers } from 'next/headers'
 
-export async function POST(request, res) {
+export async function PATCH(request, res) {
   await dbConnect()
   const body = await request.json()
   const headersList = headers()

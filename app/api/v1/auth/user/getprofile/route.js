@@ -12,7 +12,7 @@ export async function GET(request, res) {
   const _id = headersList.get('userId')
 
   try {
-    const user = await User.find({ _id }, '-password')
+    const user = await User.findOne({ _id }, '-password')
     return new Response(
       JSON.stringify({
         success: true,
