@@ -21,7 +21,7 @@ const FormInput = ({ type, name, value, onChange, label, important }) => {
 
 const Wrapper = styled.div`
   span {
-    color: var(--red-6);
+    color: var(--error);
   }
 `
 export default FormInput

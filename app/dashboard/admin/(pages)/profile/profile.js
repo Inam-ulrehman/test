@@ -7,6 +7,7 @@ import FormInput from '@/app/components/singlecomponents/FormInput'
 import Cookies from 'js-cookie'
 import GooglePlacesHook from '@/hooks/GooglePlacesHook'
 import { customFetch } from '@/lib/axios/customFetch'
+import ChangePassword from './ChangePassword'
 const genderValue = ['male', 'female', 'other']
 
 const initialState = {
@@ -226,14 +227,10 @@ const Profile = () => {
             </button>
           </div>
         </form>
-        {/* <ChangePassword /> */}
+        <ChangePassword />
       </Wrapper>
     </>
   )
-}
-
-Profile.getLayout = (page) => {
-  return <DashboardLayout>{page}</DashboardLayout>
 }
 
 const Wrapper = styled.div`
@@ -245,9 +242,9 @@ const Wrapper = styled.div`
       margin: 0;
     }
   }
-  input {
+  /* input {
     background-color: var(--gray-4);
-  }
+  } */
   select,
   input {
     text-transform: capitalize;
