@@ -19,7 +19,8 @@ const Wrapper = styled.div`
   min-height: calc(100vh - 50px);
   @media (min-width: 992px) {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
   }
 `
 export default Contact
