@@ -93,7 +93,7 @@ export default Form = () => {
             },
           ]}
         >
-          <TextArea style={{ height: 120, resize: 'none' }} />
+          <TextArea style={{ height: 120 }} />
         </Form.Item>
 
         <Button loading={loading} block type='primary' htmlType='submit'>
