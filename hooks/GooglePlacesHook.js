@@ -106,6 +106,7 @@ const PlacesAutocomplete = ({ state, setState }) => {
 const Wrapper = styled.div`
   input {
     position: relative;
+    border: 1px solid var(--gray-5);
   }
 
   ul {

@@ -23,5 +23,8 @@ const Wrapper = styled.div`
   span {
     color: var(--error);
   }
+  input {
+    border: 1px solid var(--gray-5);
+  }
 `
 export default FormInput
