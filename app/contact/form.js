@@ -4,7 +4,7 @@ import TextArea from 'antd/es/input/TextArea'
 import { useState } from 'react'
 import styled from 'styled-components'
 
-export default Form = () => {
+const ContactForm = () => {
   const { notification } = App.useApp()
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
@@ -120,3 +120,5 @@ const Wrapper = styled.div`
     }
   }
 `
+
+export default ContactForm

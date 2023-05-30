@@ -2,13 +2,13 @@
 
 import styled from 'styled-components'
 import Image from './image'
-import Form from './form'
+import ContactForm from './form'
 
 const Contact = () => {
   return (
     <Wrapper>
       <Image />
-      <Form />
+      <ContactForm />
     </Wrapper>
   )
 }
