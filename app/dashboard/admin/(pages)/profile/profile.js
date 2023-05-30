@@ -168,11 +168,11 @@ const Profile = () => {
               value={state.email}
               onChange={handleChange}
             />
-            {/* phone input */}
+            {/* mobile input */}
             <FormInput
               type={'number'}
-              name={'phone'}
-              value={state.phone === null ? '' : state.phone}
+              name={'mobile'}
+              value={state.mobile === null ? '' : state.mobile}
               onChange={handleChange}
             />
           </div>
