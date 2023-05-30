@@ -48,6 +48,7 @@ const Register = () => {
       <Form
         name='normal_login'
         className='login-form'
+        autoComplete='off'
         initialValues={{
           remember: true,
         }}
