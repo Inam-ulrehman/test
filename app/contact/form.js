@@ -1,25 +1,35 @@
-import { Button, Checkbox, Form, Input } from 'antd'
+import { customFetch } from '@/lib/axios/customFetch'
+import { App, Button, Checkbox, Form, Input } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 export default Form = () => {
+  const { notification } = App.useApp()
+  const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
-  const onFinish = (values) => {
-    console.log('Success:', values)
-    form.resetFields()
+  const onFinish = async (values) => {
+    setLoading(true)
+    try {
+      const response = await customFetch.post('/contact', values)
+      notification.success({
+        message: response.data.msg,
+      })
+      form.resetFields()
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      notification.success({
+        message: 'Something went wrong',
+        description: error?.response?.data?.msg,
+      })
+      console.log(error)
+    }
   }
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
-  }
+
   return (
     <Wrapper>
-      <Form
-        form={form}
-        name='basic'
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete='off'
-      >
+      <Form form={form} name='basic' onFinish={onFinish} autoComplete='off'>
         {/* name */}
         <Form.Item
           label='Name'
@@ -86,7 +96,7 @@ export default Form = () => {
           <TextArea style={{ height: 120, resize: 'none' }} />
         </Form.Item>
 
-        <Button block type='primary' htmlType='submit'>
+        <Button loading={loading} block type='primary' htmlType='submit'>
           Submit
         </Button>
       </Form>

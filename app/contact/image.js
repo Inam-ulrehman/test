@@ -16,7 +16,13 @@ const Image = () => {
         team is ready to assist you and provide the information you need.
       </Paragraph>
       <div className='image'>
-        <CldImage src={src} width={720} height={720} alt='Contact us' />
+        <CldImage
+          src={src}
+          width={720}
+          height={720}
+          alt='Contact us'
+          priority
+        />
       </div>
     </Wrapper>
   )
