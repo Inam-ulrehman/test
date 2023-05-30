@@ -8,11 +8,14 @@ import Cookies from 'js-cookie'
 import GooglePlacesHook from '@/hooks/GooglePlacesHook'
 import { customFetch } from '@/lib/axios/customFetch'
 import ChangePassword from './ChangePassword'
+import { App } from 'antd'
+
 const genderValue = ['male', 'female', 'other']
 
 const initialState = {
   user: [],
   isLoading: false,
+  updateLoading: false,
   name: '',
   lastName: '',
   gender: '',
@@ -33,11 +36,12 @@ const initialState = {
 const Profile = () => {
   const [state, setState] = useState(initialState)
   const { user } = useSelector((state) => state)
+  const { notification } = App.useApp()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const cookies = Cookies.get('Authorization_Token')
-
+    setState({ ...state, updateLoading: true })
     try {
       const response = await customFetch.patch(
         '/auth/user/updateprofile',
@@ -48,8 +52,15 @@ const Profile = () => {
           },
         }
       )
-      console.log(response)
+      notification.success({
+        message: response.data.msg,
+      })
+      setState({ ...state, updateLoading: false })
     } catch (error) {
+      setState({ ...state, updateLoading: false })
+      notification.error({
+        message: error?.response?.data?.msg,
+      })
       console.log(error)
     }
   }
@@ -222,8 +233,12 @@ const Profile = () => {
               />
             </div>
 
-            <button className='btn btn-block' type='submit'>
-              Update Details
+            <button
+              disabled={state.updateLoading}
+              className='btn btn-block'
+              type='submit'
+            >
+              {state.updateLoading ? 'Updating...' : 'Update details'}
             </button>
           </div>
         </form>
