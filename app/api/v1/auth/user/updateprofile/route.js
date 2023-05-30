@@ -25,6 +25,7 @@ export async function PATCH(request, res) {
     postalCode,
     mobile,
     email,
+    location,
   } = body
   try {
     const user = await User.findOneAndUpdate(
@@ -43,6 +44,7 @@ export async function PATCH(request, res) {
         postalCode,
         mobile,
         email,
+        location,
       }
     )
     return new Response(

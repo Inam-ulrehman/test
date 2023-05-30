@@ -53,6 +53,17 @@ const UserSchema = new mongoose.Schema(
       type: Date,
       trim: true,
     },
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        default: 'Point',
+      },
+      coordinates: {
+        type: [{ type: Number }],
+        required: true,
+      },
+    },
     apartment: {
       type: String,
       maxlength: 50,
