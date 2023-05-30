@@ -3,6 +3,7 @@ import usePlacesAutocomplete, { getGeocode } from 'use-places-autocomplete'
 import { useRef } from 'react'
 import styled from 'styled-components'
 import FormInput from '@/app/components/singlecomponents/FormInput'
+import { Input } from 'antd'
 
 // This is outcome from address
 
@@ -80,13 +81,13 @@ const PlacesAutocomplete = ({ state, setState }) => {
       <label className='form-label' htmlFor='address'>
         Search your address
       </label>
-      <input
+      <Input
         ref={inputWithRef}
         type='text'
         value={value?.target?.input}
         onChange={(e) => setValue(e.target.value)}
         className='form-input'
-        placeholder='TYPE HERE'
+        placeholder='search here'
         disabled={!ready}
       />
       {status === 'OK' && (
@@ -114,13 +115,13 @@ const Wrapper = styled.div`
     background-color: var(--white);
     margin: 0;
     box-shadow: var(--shadow-2);
-
+    z-index: 10;
     li {
       padding: 5px 10px;
 
       :hover {
         cursor: pointer;
-        background-color: var(--grey-1);
+        background-color: var(--gray-3);
       }
     }
   }

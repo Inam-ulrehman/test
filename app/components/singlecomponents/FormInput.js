@@ -1,3 +1,4 @@
+import { Input } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -7,7 +8,7 @@ const FormInput = ({ type, name, value, onChange, label, important }) => {
       <label className='form-label' htmlFor={name}>
         {label || name} {important ? <span>*</span> : null}
       </label>
-      <input
+      <Input
         className='form-input'
         type={type || 'text'}
         name={name}
