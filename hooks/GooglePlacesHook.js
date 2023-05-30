@@ -1,5 +1,8 @@
 import { useLoadScript } from '@react-google-maps/api'
-import usePlacesAutocomplete, { getGeocode } from 'use-places-autocomplete'
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from 'use-places-autocomplete'
 import { useRef } from 'react'
 import styled from 'styled-components'
 import FormInput from '@/app/components/singlecomponents/FormInput'
@@ -54,9 +57,18 @@ const PlacesAutocomplete = ({ state, setState }) => {
     setValue(address, false)
     clearSuggestions()
 
+    // getGeocode({ address }).then((results) => {
+    //   const { lat, lng } = getLatLng(results[0])
+    //   console.log('📍 Coordinates: ', { lat, lng })
+    // })
     const results = await getGeocode({ address })
-    // This code below is only get useful values and put in state it has nothing to do with functionality.
+    const { lat, lng } = getLatLng(results[0])
+    const location = {
+      type: 'Point',
+      coordinates: [lng, lat],
+    }
 
+    // This code below is only get useful values and put in state it has nothing to do with functionality.
     // state code=======Start
     const addressDetails = results[0]
     const { address_components } = addressDetails
@@ -73,6 +85,7 @@ const PlacesAutocomplete = ({ state, setState }) => {
       province: lastAddress[2]?.long_name,
       country: lastAddress[3]?.long_name,
       postalCode: lastAddress[4]?.long_name,
+      location: location,
     })
   }
   // state code=======End

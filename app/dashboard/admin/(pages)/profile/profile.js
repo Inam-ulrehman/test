@@ -22,6 +22,7 @@ const initialState = {
   dob: '',
   email: '',
   mobile: '',
+  location: '',
   apartment: '',
   house: '',
   street: '',
