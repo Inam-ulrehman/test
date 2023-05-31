@@ -12,8 +12,8 @@ const MobileNav = () => {
       <Link href={'/dashboard/admin/profile'}>
         <Button type='text'>Profile</Button>
       </Link>
-      <Link href={'/dashboard/admin/samples'}>
-        <Button type='text'>Samples</Button>
+      <Link href={'/dashboard/admin/contacts'}>
+        <Button type='text'>Contacts</Button>
       </Link>
     </Wrapper>
   )

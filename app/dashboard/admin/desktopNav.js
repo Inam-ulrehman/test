@@ -16,9 +16,9 @@ const DesktopNav = () => {
           Profile
         </Button>
       </Link>
-      <Link href={'/dashboard/admin/samples'}>
+      <Link href={'/dashboard/admin/contacts'}>
         <Button type='text' block>
-          Samples
+          Contact
         </Button>
       </Link>
     </Wrapper>

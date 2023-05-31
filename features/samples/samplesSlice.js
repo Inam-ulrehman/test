@@ -1,3 +1,4 @@
+import { customFetch } from '@/lib/axios/customFetch'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -9,8 +10,9 @@ const initialState = {
 export const samplesThunk = createAsyncThunk(
   'samples/samplesThunk',
   async (_, thunkAPI) => {
+    c
     try {
-      const response = await fetch('')
+      const response = await customFetch('')
 
       return response.data
     } catch (error) {

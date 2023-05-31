@@ -11,7 +11,6 @@ export async function GET(request, res) {
   await dbConnect()
 
   const name = searchParams.get('search')
-
   let sortField = searchParams.get('sortfield')
   const searchPage = searchParams.get('page')
   const searchLimit = searchParams.get('limit')
