@@ -54,6 +54,9 @@ const contactsSlice = createSlice({
     },
     getStateValues: (state, { payload }) => {
       const { name, value } = payload
+      if (name === 'search') {
+        state.page = 1
+      }
 
       state[name] = value
     },
