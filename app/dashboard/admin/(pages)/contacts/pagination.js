@@ -9,6 +9,11 @@ const PaginationComponent = () => {
   const dispatch = useDispatch()
   const { page, nbHits, limit } = contacts
   const onChange = (page, pageSize) => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
     dispatch(getStateValues({ name: 'page', value: page }))
     dispatch(getStateValues({ name: 'limit', value: pageSize }))
   }
