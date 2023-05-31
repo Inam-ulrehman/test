@@ -52,6 +52,6 @@ export async function GET(request, res) {
       { status: StatusCodes.OK }
     )
   } catch (error) {
-    mongooseErrorHandler(error)
+    return mongooseErrorHandler(error)
   }
 }
