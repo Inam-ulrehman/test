@@ -4,7 +4,8 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-const Search = () => {
+const SearchComponent = () => {
+  const { Search } = Input
   const dispatch = useDispatch()
   const { contacts } = useSelector((state) => state)
 
@@ -15,20 +16,20 @@ const Search = () => {
   }
   return (
     <Wrapper>
-      <input
-        type='text'
+      <Search
         name='search'
         value={contacts.search}
         onChange={handleChange}
+        placeholder='search here'
+        size='large'
+        loading={contacts.isLoading}
       />
     </Wrapper>
   )
 }
 const Wrapper = styled.div`
-  .ant-input {
-    background-color: pink;
+  .ant-input-search {
     max-width: 400px;
-    margin: 0 auto;
   }
 `
-export default Search
+export default SearchComponent

@@ -4,7 +4,7 @@ import { allContactsThunk } from '@/features/contacts/contactsSlice'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import List from './list'
-import Search from './search'
+import SearchComponent from './search'
 import PaginationComponent from './pagination'
 
 const Page = () => {
@@ -21,7 +21,7 @@ const Page = () => {
       <h1>
         Total {contacts.nbHits} / pageNo {contacts.page}
       </h1>
-      <Search />
+      <SearchComponent />
       <List />
       <PaginationComponent />
     </div>
