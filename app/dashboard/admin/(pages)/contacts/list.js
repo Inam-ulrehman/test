@@ -5,6 +5,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { columns } from './columns'
+import { DeleteManyModal } from './deleteManyModal'
 
 const List = () => {
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const List = () => {
 
   return (
     <Wrapper>
-      <Button disabled={deleteMany.length === 0}>Delete All</Button>
+      <DeleteManyModal />
       <div>
         <Table
           pagination={false}
