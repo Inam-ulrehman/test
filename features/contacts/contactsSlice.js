@@ -1,4 +1,5 @@
 import { customFetch } from '@/lib/axios/customFetch'
+import { addObjectInState } from '@/lib/helper'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -8,12 +9,16 @@ const initialState = {
   subject: '',
   message: '',
   nbHits: '',
+  _id: '',
+  createdAt: '',
+  updatedAt: '',
   list: [],
   deleteMany: [],
   search: '',
   limit: 10,
   page: 1,
   sort: '-createdAt',
+  singlePageError: '',
   revalidate: false,
   isLoading: false,
 }
@@ -41,6 +46,24 @@ export const allContactsThunk = createAsyncThunk(
       )
 
       return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+
+//  single contact
+
+export const singleContactThunk = createAsyncThunk(
+  'contacts/singleContactThunk',
+  async (state, thunkAPI) => {
+    try {
+      const response = await customFetch.post(
+        '/authadmin/contact/single',
+        state
+      )
+
+      return response.data.result
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
     }
@@ -95,6 +118,19 @@ const contactsSlice = createSlice({
         state.isLoading = false
       })
       .addCase(allContactsThunk.rejected, (state, { payload }) => {
+        state.isLoading = false
+      })
+      // single contact thunk
+      .addCase(singleContactThunk.pending, (state, { payload }) => {
+        state.isLoading = true
+      })
+      .addCase(singleContactThunk.fulfilled, (state, { payload }) => {
+        addObjectInState(payload, state)
+        state.singlePageError = ''
+        state.isLoading = false
+      })
+      .addCase(singleContactThunk.rejected, (state, { payload }) => {
+        state.singlePageError = payload
         state.isLoading = false
       })
   },

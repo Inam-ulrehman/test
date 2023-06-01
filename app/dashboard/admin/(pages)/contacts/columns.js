@@ -1,6 +1,7 @@
 import { EditOutlined } from '@ant-design/icons'
 import { Button, Space } from 'antd'
 import { DeleteItemModal } from './deleteItemModal'
+import Link from 'next/link'
 
 export const columns = [
   {
@@ -32,10 +33,9 @@ export const columns = [
     key: 'action',
     render: (_, record) => (
       <Space size='middle'>
-        <Button
-          onClick={() => console.log('read')}
-          icon={<EditOutlined />}
-        ></Button>
+        <Link href={`/dashboard/admin/contacts/${record._id}`}>
+          <Button icon={<EditOutlined />}></Button>
+        </Link>
 
         <DeleteItemModal record={record} />
       </Space>
