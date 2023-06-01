@@ -13,6 +13,7 @@ const initialState = {
   search: '',
   limit: 10,
   page: 1,
+  revalidate: false,
   isLoading: false,
 }
 export const contactsThunk = createAsyncThunk(

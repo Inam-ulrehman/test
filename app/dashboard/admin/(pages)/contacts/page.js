@@ -10,11 +10,11 @@ import PaginationComponent from './pagination'
 const Page = () => {
   const dispatch = useDispatch()
   const { contacts } = useSelector((state) => state)
-  const { search, page, limit } = contacts
+  const { search, page, limit, revalidate } = contacts
 
   useEffect(() => {
     dispatch(allContactsThunk(contacts))
-  }, [search, page, limit])
+  }, [search, page, limit, revalidate])
 
   return (
     <div>

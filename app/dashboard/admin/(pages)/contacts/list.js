@@ -1,10 +1,12 @@
 import { getStateValues } from '@/features/contacts/contactsSlice'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { EditOutlined } from '@ant-design/icons'
 import { Button, Space, Table } from 'antd'
+
 import moment from 'moment'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { DeleteItemModal } from './deleteItemModal'
 
 const List = () => {
   const dispatch = useDispatch()
@@ -45,10 +47,8 @@ const List = () => {
             onClick={() => console.log('read')}
             icon={<EditOutlined />}
           ></Button>
-          <Button
-            onClick={() => console.log(`Delete ${record._id}`)}
-            icon={<DeleteOutlined />}
-          ></Button>
+
+          <DeleteItemModal record={record} />
         </Space>
       ),
     },
