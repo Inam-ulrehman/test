@@ -1,7 +1,11 @@
 'use client'
 
 import ApiLoading from '@/app/components/singlecomponents/apiLoading'
-import { singleContactThunk } from '@/features/contacts/contactsSlice'
+import {
+  getStateValues,
+  singleContactThunk,
+  updateContactThunk,
+} from '@/features/contacts/contactsSlice'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,11 +13,12 @@ import ErrorPage from './errorPage'
 import styled from 'styled-components'
 import moment from 'moment'
 import Link from 'next/link'
-import { Button } from 'antd'
+import { Button, Input } from 'antd'
 
 const Single = ({ params }) => {
   const path = usePathname()
   const dispatch = useDispatch()
+  const { contacts } = useSelector((state) => state)
   const {
     isLoading,
     singlePageError,
@@ -24,74 +29,128 @@ const Single = ({ params }) => {
     message,
     subject,
     name,
-  } = useSelector((state) => state.contacts)
+    edit,
+    editLoading,
+  } = contacts
+
+  const onChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+    dispatch(getStateValues({ name, value }))
+  }
 
   useEffect(() => {
     dispatch(singleContactThunk(params))
   }, [path])
-  if (isLoading) {
-    return <ApiLoading />
-  }
+  // if (isLoading) {
+  //   return <ApiLoading />
+  // }
   if (singlePageError) {
     return <ErrorPage />
   }
 
   return (
-    <Wrapper>
+    <Wrapper edit={edit}>
       <div className='header'>
         <div className='box time'>
           <div className='box-1'>
-            <span>Created At :</span>
-            <strong>{moment(createdAt).format('LLL')}</strong>
+            <span>Created At</span>
+            <Input value={moment(createdAt).format('LLL')} disabled={true} />
           </div>
           <div className='box-2'>
-            <span> Updated At :</span>
-            <strong>{moment(updatedAt).format('LLL')}</strong>
+            <span> Updated At</span>
+            <Input value={moment(updatedAt).format('LLL')} disabled={true} />
           </div>
         </div>
         <div className='box contact'>
           <div className='box-1'>
-            <span>Email :</span> <strong>{email}</strong>
+            <span>Email</span>
+            <Input
+              onChange={onChange}
+              name='email'
+              value={email}
+              disabled={edit}
+            ></Input>
           </div>
           <div className='box-2'>
-            <span>Mobile :</span>
-            <strong>{mobile}</strong>
+            <span>Mobile</span>
+            <Input
+              name='mobile'
+              onChange={onChange}
+              value={mobile}
+              disabled={edit}
+            ></Input>
           </div>
         </div>
         <div className='box details'>
           <div className='box-1'>
-            <span>Name :</span>
-            <strong>{name}</strong>
+            <span>Name</span>
+            <Input
+              name='name'
+              onChange={onChange}
+              value={name}
+              disabled={edit}
+            ></Input>
           </div>
           <div className='box-2'>
-            <span>Subject :</span>
-            <strong>{subject}</strong>
+            <span>Subject</span>
+            <Input
+              name='subject'
+              onChange={onChange}
+              value={subject}
+              disabled={edit}
+            ></Input>
           </div>
         </div>
       </div>
 
-      <div className='message'>{message}</div>
+      <div className='message'>
+        <Input.TextArea disabled={true} showCount value={message} />
+      </div>
       <div className='button-box'>
         <Link href={'/dashboard/admin/contacts'}>
           <Button>Go Back</Button>
         </Link>
+        {edit ? (
+          <Button
+            onClick={() =>
+              dispatch(getStateValues({ name: 'edit', value: false }))
+            }
+          >
+            Edit
+          </Button>
+        ) : (
+          <Button
+            loading={editLoading}
+            onClick={() => dispatch(updateContactThunk(contacts))}
+          >
+            Save
+          </Button>
+        )}
       </div>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-  .message {
-    background-color: var(--gray-3);
-    min-height: 50vh;
-    margin: 2rem;
-    padding: 1rem;
-    box-shadow: var(--shadow-3);
-    border-radius: var(--radius-2);
-  }
   .button-box {
     text-align: center;
+    button {
+      margin: 1rem;
+    }
   }
+  .message {
+    padding: 5px;
+    .ant-input {
+      min-height: 50vh;
+    }
+  }
+  .ant-input {
+    color: var(--gray-7) !important;
+    color: ${(props) =>
+      props.edit === true ? 'var(--gray-8)' : 'black'} !important;
+  }
+
   @media (max-width: 678px) {
     .box {
       display: grid;
@@ -100,9 +159,6 @@ const Wrapper = styled.div`
       .box-2 {
         padding: 5px;
       }
-    }
-    .message {
-      margin: 1rem;
     }
   }
   @media (min-width: 678px) {
@@ -113,6 +169,9 @@ const Wrapper = styled.div`
       padding: 1rem;
       margin-right: 1rem;
       box-shadow: var(--shadow-2);
+    }
+    .message {
+      min-height: 50vh;
     }
   }
 `

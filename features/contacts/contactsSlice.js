@@ -19,8 +19,11 @@ const initialState = {
   page: 1,
   sort: '-createdAt',
   singlePageError: '',
+
   revalidate: false,
   isLoading: false,
+  editLoading: false,
+  edit: true,
 }
 export const contactsThunk = createAsyncThunk(
   'contacts/contactsThunk',
@@ -62,9 +65,27 @@ export const singleContactThunk = createAsyncThunk(
         '/authadmin/contact/single',
         state
       )
-      console.log(response.data.result)
+
       return response.data.result
     } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+//  update contact
+
+export const updateContactThunk = createAsyncThunk(
+  'contacts/updateContactThunk',
+  async (state, thunkAPI) => {
+    try {
+      const response = await customFetch.patch(
+        '/authadmin/contact/update',
+        state
+      )
+
+      return response.data.result
+    } catch (error) {
+      console.log(error)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -132,6 +153,17 @@ const contactsSlice = createSlice({
       .addCase(singleContactThunk.rejected, (state, { payload }) => {
         state.singlePageError = payload
         state.isLoading = false
+      })
+      // update contact thunk
+      .addCase(updateContactThunk.pending, (state, { payload }) => {
+        state.editLoading = true
+      })
+      .addCase(updateContactThunk.fulfilled, (state, { payload }) => {
+        state.edit = true
+        state.editLoading = false
+      })
+      .addCase(updateContactThunk.rejected, (state, { payload }) => {
+        state.editLoading = false
       })
   },
 })
