@@ -5,6 +5,13 @@ import Link from 'next/link'
 
 export const columns = [
   {
+    title: 'Time',
+    dataIndex: 'date',
+    key: 'date',
+    // defaultSortOrder: 'descend',
+    sorter: (a, b) => a.mobile - b.mobile,
+  },
+  {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
@@ -25,13 +32,7 @@ export const columns = [
     key: 'mobile',
     ellipsis: true,
   },
-  {
-    title: 'Time',
-    dataIndex: 'date',
-    key: 'date',
-    // defaultSortOrder: 'descend',
-    sorter: (a, b) => a.mobile - b.mobile,
-  },
+
   {
     title: 'Action',
     key: 'action',

@@ -14,7 +14,7 @@ const List = () => {
 
   const data = list?.map((item) => {
     const key = item._id
-    const date = moment(item.createdAt).format('MMM Do YY')
+    const date = moment(item.createdAt).format('LLL')
     return {
       ...item,
       key,
@@ -64,10 +64,10 @@ const Wrapper = styled.div`
     td {
       padding: 5px !important;
       /* display: none; */
-      :nth-child(4) {
+      :nth-child(5) {
         display: none;
       }
-      :nth-child(5) {
+      :nth-child(6) {
         display: none;
       }
     }

@@ -62,7 +62,7 @@ export const singleContactThunk = createAsyncThunk(
         '/authadmin/contact/single',
         state
       )
-
+      console.log(response.data.result)
       return response.data.result
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
