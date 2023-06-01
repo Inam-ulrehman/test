@@ -8,6 +8,7 @@ export const columns = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
+    ellipsis: true,
     // sorter: (a, b) => a.name.length - b.name.length,
     // sortDirections: ['descend'],
   },
@@ -15,11 +16,13 @@ export const columns = [
     title: 'Subject',
     dataIndex: 'subject',
     key: 'subject',
+    ellipsis: true,
   },
   {
     title: 'Mobile',
     dataIndex: 'mobile',
     key: 'mobile',
+    ellipsis: true,
   },
   {
     title: 'Time',
