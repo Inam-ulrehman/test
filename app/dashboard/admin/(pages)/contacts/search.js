@@ -20,8 +20,8 @@ const SearchComponent = () => {
         name='search'
         value={contacts.search}
         onChange={handleChange}
-        placeholder='search here'
-        size='large'
+        placeholder='Name Email Mobile'
+        size='medium'
         loading={contacts.isLoading}
       />
     </Wrapper>
@@ -30,6 +30,7 @@ const SearchComponent = () => {
 const Wrapper = styled.div`
   .ant-input-search {
     max-width: 400px;
+    padding: 0 1rem;
   }
 `
 export default SearchComponent

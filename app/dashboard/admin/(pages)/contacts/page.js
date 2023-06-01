@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import List from './list'
 import SearchComponent from './search'
 import PaginationComponent from './pagination'
+import styled from 'styled-components'
+import { Typography } from 'antd'
+const { Text } = Typography
 
 const Page = () => {
   const dispatch = useDispatch()
@@ -17,15 +20,40 @@ const Page = () => {
   }, [search, page, limit, revalidate])
 
   return (
-    <div>
-      <h1>
-        Total {contacts.nbHits} / pageNo {contacts.page}
-      </h1>
-      <SearchComponent />
+    <Wrapper>
+      <div className='search-box'>
+        {/* <h1>
+          Total {contacts.nbHits} / pageNo {contacts.page}
+        </h1> */}
+        <div className='title'>
+          <div className='title-1'>
+            {' '}
+            <Text>Total Results:</Text> <Text strong>{contacts.nbHits}</Text>
+          </div>
+          <div className='title-2'>
+            <Text>Page No:</Text> <Text strong>{contacts.page}</Text>
+          </div>
+        </div>
+        <SearchComponent />
+      </div>
       <List />
       <PaginationComponent />
-    </div>
+    </Wrapper>
   )
 }
-
+const Wrapper = styled.div`
+  .title {
+    display: flex;
+    .title-2 {
+      margin: 0 1rem;
+    }
+  }
+  .search-box {
+  }
+  @media (min-width: 678px) {
+    .search-box {
+      display: flex;
+    }
+  }
+`
 export default Page
