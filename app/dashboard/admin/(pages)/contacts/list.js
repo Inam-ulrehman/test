@@ -1,58 +1,15 @@
 import { getStateValues } from '@/features/contacts/contactsSlice'
-import { EditOutlined } from '@ant-design/icons'
-import { Button, Space, Table } from 'antd'
-
+import { Button, Table } from 'antd'
 import moment from 'moment'
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { DeleteItemModal } from './deleteItemModal'
+import { columns } from './columns'
 
 const List = () => {
   const dispatch = useDispatch()
   const { contacts } = useSelector((state) => state)
   const { list, deleteMany, isLoading } = contacts
-
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      sorter: (a, b) => a.name.length - b.name.length,
-      sortDirections: ['descend'],
-    },
-    {
-      title: 'Subject',
-      dataIndex: 'subject',
-      key: 'subject',
-    },
-    {
-      title: 'Mobile',
-      dataIndex: 'mobile',
-      key: 'mobile',
-    },
-    {
-      title: 'Time',
-      dataIndex: 'date',
-      key: 'date',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.mobile - b.mobile,
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size='middle'>
-          <Button
-            onClick={() => console.log('read')}
-            icon={<EditOutlined />}
-          ></Button>
-
-          <DeleteItemModal record={record} />
-        </Space>
-      ),
-    },
-  ]
 
   const data = list?.map((item) => {
     const key = item._id
@@ -66,15 +23,12 @@ const List = () => {
   const handleChange = (value) => {
     dispatch(getStateValues({ name: 'deleteMany', value: value }))
   }
-  const onChange = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra)
-  }
+
   return (
     <Wrapper>
       <Button disabled={deleteMany.length === 0}>Delete All</Button>
       <div>
         <Table
-          className='desktop'
           pagination={false}
           rowSelection={{
             type: 'checkbox',
@@ -82,7 +36,6 @@ const List = () => {
           }}
           dataSource={data}
           columns={columns}
-          onChange={onChange}
           loading={isLoading}
           expandable={{
             expandedRowRender: (record) => (
@@ -104,9 +57,16 @@ const List = () => {
 
 const Wrapper = styled.div`
   td {
-    :nth-child(4),
     :nth-child(3) {
       max-width: 100px;
+    }
+    :nth-child(5) {
+      max-width: 100px;
+    }
+  }
+  td {
+    :nth-child(4) {
+      max-width: 120px;
     }
   }
 
@@ -122,9 +82,6 @@ const Wrapper = styled.div`
         :nth-child(5) {
           display: none;
         }
-        /* :nth-child(6) {
-          display: none;
-        } */
       }
     }
   }
