@@ -61,28 +61,30 @@ const Wrapper = styled.div`
     :nth-child(3) {
       max-width: 100px;
     }
-    :nth-child(5) {
-      max-width: 100px;
-    }
-  }
-  td {
     :nth-child(4) {
       max-width: 120px;
+    }
+    :nth-child(5) {
+      max-width: 60px;
+    }
+    :nth-child(6) {
+      max-width: 60px;
+    }
+    :nth-child(7) {
+      width: 50px !important;
     }
   }
 
   @media (max-width: 768px) {
-    .desktop {
-      th,
-      td {
-        padding: 5px 0 !important;
-        /* display: none; */
-        :nth-child(4) {
-          display: none;
-        }
-        :nth-child(5) {
-          display: none;
-        }
+    th,
+    td {
+      padding: 5px 1px !important;
+      /* display: none; */
+      :nth-child(4) {
+        display: none;
+      }
+      :nth-child(5) {
+        display: none;
       }
     }
   }
