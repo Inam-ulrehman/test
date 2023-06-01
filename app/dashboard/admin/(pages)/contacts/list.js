@@ -28,7 +28,7 @@ const List = () => {
   return (
     <Wrapper>
       <DeleteManyModal />
-      <div>
+      <div className='table-container'>
         <Table
           pagination={false}
           rowSelection={{
@@ -41,8 +41,10 @@ const List = () => {
           expandable={{
             expandedRowRender: (record) => (
               <p
+                className='expand'
                 style={{
                   margin: 0,
+                  padding: '1rem',
                 }}
               >
                 {record.message}
@@ -69,6 +71,11 @@ const Wrapper = styled.div`
         display: none;
       }
     }
+  }
+
+  .ant-table-cell,
+  .ant-table-row {
+    width: 100%;
   }
 `
 export default List

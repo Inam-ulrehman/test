@@ -9,6 +9,7 @@ export const columns = [
     dataIndex: 'name',
     key: 'name',
     ellipsis: true,
+
     // sorter: (a, b) => a.name.length - b.name.length,
     // sortDirections: ['descend'],
   },
