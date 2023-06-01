@@ -9,6 +9,7 @@ import GooglePlacesHook from '@/hooks/GooglePlacesHook'
 import { customFetch } from '@/lib/axios/customFetch'
 import ChangePassword from './ChangePassword'
 import { App } from 'antd'
+import ApiLoading from '@/app/components/singlecomponents/apiLoading'
 
 const genderValue = ['male', 'female', 'other']
 
@@ -95,12 +96,7 @@ const Profile = () => {
     // eslint-disable-next-line
   }, [])
   if (state.isLoading) {
-    return (
-      <div>
-        <h1 className='title'>Loading...</h1>
-        <div className='loading'></div>
-      </div>
-    )
+    return <ApiLoading />
   }
   return (
     <>
