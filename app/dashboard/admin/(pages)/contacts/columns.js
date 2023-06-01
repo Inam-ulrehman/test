@@ -7,8 +7,8 @@ export const columns = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    sorter: (a, b) => a.name.length - b.name.length,
-    sortDirections: ['descend'],
+    // sorter: (a, b) => a.name.length - b.name.length,
+    // sortDirections: ['descend'],
   },
   {
     title: 'Subject',
@@ -24,7 +24,7 @@ export const columns = [
     title: 'Time',
     dataIndex: 'date',
     key: 'date',
-    defaultSortOrder: 'descend',
+    // defaultSortOrder: 'descend',
     sorter: (a, b) => a.mobile - b.mobile,
   },
   {

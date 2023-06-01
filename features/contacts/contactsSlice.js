@@ -13,6 +13,7 @@ const initialState = {
   search: '',
   limit: 10,
   page: 1,
+  sort: '-createdAt',
   revalidate: false,
   isLoading: false,
 }
@@ -32,11 +33,11 @@ export const contactsThunk = createAsyncThunk(
 export const allContactsThunk = createAsyncThunk(
   'contacts/allContactsThunk',
   async (state, thunkAPI) => {
-    const { search, page, limit } = state
+    const { search, page, limit, sort } = state
 
     try {
       const response = await customFetch(
-        `/authadmin/contact/all?search=${search}&page=${page}&limit=${limit}`
+        `/authadmin/contact/all?search=${search}&sort=${sort}&page=${page}&limit=${limit}`
       )
 
       return response.data
