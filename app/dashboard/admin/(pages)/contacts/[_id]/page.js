@@ -14,6 +14,7 @@ import styled from 'styled-components'
 import moment from 'moment'
 import Link from 'next/link'
 import { Button, Input } from 'antd'
+import Title from 'antd/es/typography/Title'
 
 const Single = ({ params }) => {
   const path = usePathname()
@@ -42,9 +43,9 @@ const Single = ({ params }) => {
   useEffect(() => {
     dispatch(singleContactThunk(params))
   }, [path])
-  // if (isLoading) {
-  //   return <ApiLoading />
-  // }
+  if (isLoading) {
+    return <ApiLoading />
+  }
   if (singlePageError) {
     return <ErrorPage />
   }
@@ -105,6 +106,9 @@ const Single = ({ params }) => {
       </div>
 
       <div className='message'>
+        <Title level={3} style={{ textAlign: 'center' }}>
+          Message
+        </Title>
         <Input.TextArea disabled={true} showCount value={message} />
       </div>
       <div className='button-box'>
@@ -164,6 +168,7 @@ const Wrapper = styled.div`
   @media (min-width: 678px) {
     .header {
       display: flex;
+      justify-content: space-evenly;
     }
     .box {
       padding: 1rem;
