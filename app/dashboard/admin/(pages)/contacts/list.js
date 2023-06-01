@@ -1,6 +1,7 @@
 import { getStateValues } from '@/features/contacts/contactsSlice'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Button, Space, Table } from 'antd'
+import moment from 'moment'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -19,14 +20,19 @@ const List = () => {
       sortDirections: ['descend'],
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
+      title: 'Subject',
+      dataIndex: 'subject',
+      key: 'subject',
     },
     {
       title: 'Mobile',
       dataIndex: 'mobile',
       key: 'mobile',
+    },
+    {
+      title: 'Time',
+      dataIndex: 'date',
+      key: 'date',
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.mobile - b.mobile,
     },
@@ -50,9 +56,11 @@ const List = () => {
 
   const data = list?.map((item) => {
     const key = item._id
+    const date = moment(item.createdAt).format('MMM Do YY')
     return {
       ...item,
       key,
+      date,
     }
   })
   const handleChange = (value) => {
@@ -95,10 +103,20 @@ const List = () => {
 }
 
 const Wrapper = styled.div`
+  td {
+    :nth-child(4),
+    :nth-child(3) {
+      background-color: pink;
+      border: 2px solid black !important;
+      max-width: 100px;
+    }
+  }
+
   @media (max-width: 768px) {
     .desktop {
       th,
       td {
+        padding: 5px 0 !important;
         /* display: none; */
         :nth-child(4) {
           display: none;
@@ -106,6 +124,9 @@ const Wrapper = styled.div`
         :nth-child(5) {
           display: none;
         }
+        /* :nth-child(6) {
+          display: none;
+        } */
       }
     }
   }
