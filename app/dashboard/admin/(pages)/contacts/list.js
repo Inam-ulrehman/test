@@ -106,8 +106,6 @@ const Wrapper = styled.div`
   td {
     :nth-child(4),
     :nth-child(3) {
-      background-color: pink;
-      border: 2px solid black !important;
       max-width: 100px;
     }
   }
