@@ -40,7 +40,7 @@ const Page = () => {
   )
 }
 const Wrapper = styled.div`
-  .title {
+  /* .title {
     display: flex;
     .title-2 {
       margin: 0 1rem;
@@ -52,6 +52,6 @@ const Wrapper = styled.div`
     .search-box {
       display: flex;
     }
-  }
+  } */
 `
 export default Page
