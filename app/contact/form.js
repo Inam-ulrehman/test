@@ -41,7 +41,7 @@ const ContactForm = () => {
             },
           ]}
         >
-          <Input />
+          <Input maxLength={20} />
         </Form.Item>
         {/* email */}
         <Form.Item
@@ -54,7 +54,7 @@ const ContactForm = () => {
             },
           ]}
         >
-          <Input type='email' />
+          <Input type='email' maxLength={30} />
         </Form.Item>
         {/* mobile */}
         <Form.Item
@@ -67,7 +67,7 @@ const ContactForm = () => {
             },
           ]}
         >
-          <Input type='number' />
+          <Input type='number' maxLength={15} />
         </Form.Item>
         {/* subject */}
         <Form.Item
@@ -80,7 +80,7 @@ const ContactForm = () => {
             },
           ]}
         >
-          <Input />
+          <Input maxLength={30} showCount />
         </Form.Item>
         {/* email */}
         <Form.Item
