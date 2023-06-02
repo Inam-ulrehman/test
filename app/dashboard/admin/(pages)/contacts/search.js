@@ -48,6 +48,7 @@ const SearchComponent = () => {
 }
 
 const Wrapper = styled.div`
+  padding: 1rem;
   /* display: flex; */
   touch-action: manipulation; /* Add this line to prevent zooming on touch devices */
   .ant-input-search {
