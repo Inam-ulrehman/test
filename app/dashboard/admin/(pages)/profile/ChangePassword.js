@@ -125,12 +125,5 @@ const ChangePassword = () => {
   )
 }
 
-const Wrapper = styled.div`
-  .ant-form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-`
+const Wrapper = styled.div``
 export default ChangePassword

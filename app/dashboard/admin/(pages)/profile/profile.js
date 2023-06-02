@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 import GooglePlacesHook from '@/hooks/GooglePlacesHook'
 import { customFetch } from '@/lib/axios/customFetch'
 import ChangePassword from './ChangePassword'
-import { App } from 'antd'
+import { App, Input } from 'antd'
 import ApiLoading from '@/app/components/singlecomponents/apiLoading'
 
 const genderValue = ['male', 'female', 'other']
@@ -95,38 +95,46 @@ const Profile = () => {
     getData()
     // eslint-disable-next-line
   }, [])
-  if (state.isLoading) {
-    return <ApiLoading />
-  }
+  // if (state.isLoading) {
+  //   return <ApiLoading />
+  // }
   return (
     <>
       <Wrapper>
         <div className='dates'>
           <p>
-            Created At
-            <strong>{moment(state.createdAt).format('MMM Do YY')}</strong>
+            Member Since :
+            <strong> {moment(state.createdAt).format('MMM Do YY')}</strong>
           </p>
           <p>
-            Last updated
-            <strong>{moment(state.updatedAt).format('MMM Do YY')}</strong>
+            Last updated :
+            <strong> {moment(state.updatedAt).format('MMM Do YY')}</strong>
           </p>
         </div>
         <form className='form' onSubmit={handleSubmit}>
           <div className='profile'>
             {/* name input */}
-            <FormInput
-              label={'First Name'}
-              name={'name'}
-              value={state.name}
-              onChange={handleChange}
-            />
+            <div className='name'>
+              <label htmlFor='name'>First Name</label>
+              <Input
+                size='large'
+                name={'name'}
+                value={state.name}
+                onChange={handleChange}
+              ></Input>
+            </div>
+
             {/* last name input */}
-            <FormInput
-              label={'Last Name'}
-              name={'lastName'}
-              value={state.lastName}
-              onChange={handleChange}
-            />
+            <div className='lastName'>
+              <label htmlFor='lastName'>Last Name</label>
+              <Input
+                size='large'
+                name={'lastName'}
+                value={state.lastName}
+                onChange={handleChange}
+              ></Input>
+            </div>
+
             {/* Date of birth input */}
             <div className='date-of-birth'>
               <FormInput
@@ -248,27 +256,10 @@ const Profile = () => {
 const Wrapper = styled.div`
   .dates {
     display: flex;
-    padding: 0 1rem;
-    justify-content: space-between;
-    p {
-      margin: 0;
-    }
+    gap: 1rem;
   }
-  /* input {
-    background-color: var(--gray-4);
-  } */
-  select,
-  input {
-    text-transform: capitalize;
-  }
-  .date-of-birth {
-    input {
-      text-transform: uppercase;
-    }
-  }
-  .gender {
-    padding: 5px 0;
-    display: grid;
+  form {
+    padding: 1rem;
   }
 
   @media (min-width: 992px) {
