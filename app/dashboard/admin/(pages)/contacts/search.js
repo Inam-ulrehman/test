@@ -46,6 +46,7 @@ const SearchComponent = () => {
 }
 const Wrapper = styled.div`
   display: flex;
+  touch-action: manipulation;
   .ant-input-search {
     max-width: 400px;
   }
