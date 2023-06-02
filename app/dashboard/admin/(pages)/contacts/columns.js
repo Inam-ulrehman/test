@@ -5,13 +5,6 @@ import Link from 'next/link'
 
 export const columns = [
   {
-    title: 'Time',
-    dataIndex: 'date',
-    key: 'date',
-    // defaultSortOrder: 'descend',
-    sorter: (a, b) => a.mobile - b.mobile,
-  },
-  {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
@@ -25,17 +18,36 @@ export const columns = [
     dataIndex: 'subject',
     key: 'subject',
     ellipsis: true,
+    responsive: ['md'],
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+    ellipsis: true,
+    responsive: ['lg'],
   },
   {
     title: 'Mobile',
     dataIndex: 'mobile',
     key: 'mobile',
     ellipsis: true,
+    responsive: ['lg'],
+  },
+  {
+    title: 'Time',
+    dataIndex: 'date',
+    key: 'date',
+    width: 110,
+
+    // defaultSortOrder: 'descend',
+    sorter: (a, b) => a.mobile - b.mobile,
   },
 
   {
     title: 'Action',
     key: 'action',
+    width: 120,
     render: (_, record) => (
       <Space size='middle'>
         <Link href={`/dashboard/admin/contacts/${record._id}`}>

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { columns } from './columns'
 import { DeleteManyModal } from './deleteManyModal'
+import { formatGmailDate } from '@/lib/helper'
 
 const List = () => {
   const dispatch = useDispatch()
@@ -14,7 +15,8 @@ const List = () => {
 
   const data = list?.map((item) => {
     const key = item._id
-    const date = moment(item.createdAt).format('LLL')
+
+    const date = formatGmailDate(item.createdAt)
     return {
       ...item,
       key,
@@ -59,20 +61,6 @@ const List = () => {
 }
 
 const Wrapper = styled.div`
-  @media (max-width: 768px) {
-    th,
-    td {
-      padding: 5px !important;
-      /* display: none; */
-      :nth-child(5) {
-        display: none;
-      }
-      :nth-child(6) {
-        display: none;
-      }
-    }
-  }
-
   .ant-table-cell,
   .ant-table-row {
     width: 100%;
