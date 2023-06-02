@@ -1,107 +1,51 @@
 'use client'
 import moment from 'moment/moment'
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import FormInput from '@/app/components/singlecomponents/FormInput'
-import Cookies from 'js-cookie'
-import GooglePlacesHook from '@/hooks/GooglePlacesHook'
-import { customFetch } from '@/lib/axios/customFetch'
+
 import ChangePassword from './ChangePassword'
 import { App, Button, DatePicker, Input, Select } from 'antd'
 import ApiLoading from '@/app/components/singlecomponents/apiLoading'
+import {
+  getStateValues,
+  usersGetProfileThunk,
+  usersUpdateProfileThunk,
+} from '@/features/users/usersSlice'
+import GooglePlacesHook from './GooglePlacesHook'
 
-const initialState = {
-  user: [],
-  isLoading: false,
-  updateLoading: false,
-  name: '',
-  lastName: '',
-  gender: '',
-  dob: '',
-  email: '',
-  mobile: '',
-  location: '',
-  apartment: '',
-  house: '',
-  street: '',
-  city: '',
-  province: '',
-  country: '',
-  postalCode: '',
-  updatedAt: '',
-  createdAt: '',
-  verified: '',
-}
 const Profile = () => {
-  const [state, setState] = useState(initialState)
-  const { user } = useSelector((state) => state)
   const { notification } = App.useApp()
+  const dispatch = useDispatch()
+  const { users } = useSelector((state) => state)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const cookies = Cookies.get('Authorization_Token')
-    setState({ ...state, updateLoading: true })
-    try {
-      const response = await customFetch.patch(
-        '/auth/user/updateprofile',
-        state,
-        {
-          headers: {
-            Authorization: `Bearer ${cookies}`,
-          },
-        }
-      )
-      notification.success({
-        message: response.data.msg,
-      })
-      setState({ ...state, updateLoading: false })
-    } catch (error) {
-      setState({ ...state, updateLoading: false })
-      notification.error({
-        message: error?.response?.data?.msg,
-      })
-      console.log(error)
+    const result = await dispatch(usersUpdateProfileThunk(users))
+    if (result.payload.success) {
+      return notification.success({ message: result.payload.msg })
     }
+    notification.error({ message: result?.payload?.msg })
   }
   const handleChange = (e) => {
     const name = e.target.name
     const value = e.target.value
-    setState({ ...state, [name]: value })
+    dispatch(getStateValues({ name, value }))
   }
   const handleDatePickerChange = (date, dateString) => {
     const formattedDate = moment(dateString).toISOString()
-    setState({ ...state, dob: formattedDate })
+    dispatch(getStateValues({ name: 'dob', value: formattedDate }))
   }
   const handleGenderChange = (value) => {
-    setState({ ...state, gender: value })
-  }
-
-  // Get single User
-  const getData = async () => {
-    setState({ ...state, isLoading: true })
-    const cookies = Cookies.get('Authorization_Token')
-    try {
-      const response = await customFetch.get('/auth/user/getprofile', {
-        headers: {
-          Authorization: `Bearer ${cookies}`,
-        },
-      })
-
-      const data = response.data.result
-      setState({ ...state, ...data, isLoading: false })
-    } catch (error) {
-      console.log(error)
-      setState({ ...state, isLoading: false })
-    }
+    dispatch(getStateValues({ name: 'gender', value }))
   }
 
   useEffect(() => {
-    getData()
+    dispatch(usersGetProfileThunk())
 
     // eslint-disable-next-line
   }, [])
-  if (state.isLoading) {
+  if (users.isLoading) {
     return <ApiLoading />
   }
   return (
@@ -110,11 +54,11 @@ const Profile = () => {
         <div className='dates'>
           <p>
             Member Since :
-            <strong> {moment(state.createdAt).format('MMM Do YY')}</strong>
+            <strong> {moment(users?.createdAt).format('MMM Do YY')}</strong>
           </p>
           <p>
             Last updated :
-            <strong> {moment(state.updatedAt).format('MMM Do YY')}</strong>
+            <strong> {moment(users?.updatedAt).format('MMM Do YY')}</strong>
           </p>
         </div>
         <form className='form' onSubmit={handleSubmit}>
@@ -125,11 +69,11 @@ const Profile = () => {
               <Input
                 size='large'
                 name={'name'}
-                value={state.name}
+                value={users?.name}
                 onChange={handleChange}
                 required
               ></Input>
-              {!state.name && (
+              {!users?.name && (
                 <p style={{ color: 'red' }}>Please provide Name</p>
               )}
             </div>
@@ -140,7 +84,7 @@ const Profile = () => {
               <Input
                 size='large'
                 name={'lastName'}
-                value={state.lastName}
+                value={users?.lastName}
                 onChange={handleChange}
               ></Input>
             </div>
@@ -150,7 +94,7 @@ const Profile = () => {
               <label htmlFor='dob'>Date Of Birth</label>
 
               <DatePicker
-                value={state.dob ? moment(state.dob) : null}
+                value={users?.dob ? moment(users?.dob) : null}
                 style={{ display: 'block', maxWidth: '100%' }}
                 onChange={handleDatePickerChange}
                 size='large'
@@ -160,7 +104,7 @@ const Profile = () => {
             <div className='gender'>
               <label htmlFor='gender'>Gender</label>
               <Select
-                defaultValue={state.gender ? state.gender : 'Select'}
+                defaultValue={users?.gender ? users?.gender : 'Select'}
                 style={{ display: 'block', maxWidth: '100%' }}
                 onChange={handleGenderChange}
                 options={[
@@ -179,11 +123,11 @@ const Profile = () => {
                 size='large'
                 name={'email'}
                 style={{ textTransform: 'lowercase' }}
-                value={state.email}
+                value={users?.email}
                 onChange={handleChange}
                 required
               ></Input>
-              {!state.email && (
+              {!users?.email && (
                 <p style={{ color: 'red' }}>Please provide email</p>
               )}
             </div>
@@ -195,15 +139,15 @@ const Profile = () => {
                 type='number'
                 size='large'
                 name={'mobile'}
-                // state.mobile === null ? '' : state.mobile
-                value={state.mobile}
+                // users?.mobile === null ? '' : users?.mobile
+                value={users?.mobile}
                 onChange={handleChange}
               ></Input>
             </div>
           </div>
           {/* ====================Box Divider=============*/}
           <div className='box-2'>
-            <GooglePlacesHook state={state} setState={setState} />
+            <GooglePlacesHook />
             <div className='box-2-inline'>
               {/* apartment  */}
               <div className='apartment'>
@@ -211,7 +155,7 @@ const Profile = () => {
                 <Input
                   size='large'
                   name={'apartment'}
-                  value={state.apartment}
+                  value={users?.apartment}
                   onChange={handleChange}
                 ></Input>
               </div>
@@ -222,7 +166,7 @@ const Profile = () => {
                 <Input
                   size='large'
                   name={'house'}
-                  value={state.house}
+                  value={users?.house}
                   onChange={handleChange}
                 ></Input>
               </div>
@@ -233,7 +177,7 @@ const Profile = () => {
               <Input
                 size='large'
                 name={'street'}
-                value={state.street}
+                value={users?.street}
                 onChange={handleChange}
               ></Input>
             </div>
@@ -245,7 +189,7 @@ const Profile = () => {
                 <Input
                   size='large'
                   name={'city'}
-                  value={state.city}
+                  value={users?.city}
                   onChange={handleChange}
                 ></Input>
               </div>
@@ -256,7 +200,7 @@ const Profile = () => {
                 <Input
                   size='large'
                   name={'province'}
-                  value={state.province}
+                  value={users?.province}
                   onChange={handleChange}
                 ></Input>
               </div>
@@ -269,7 +213,7 @@ const Profile = () => {
                 <Input
                   size='large'
                   name={'country'}
-                  value={state?.country}
+                  value={users?.country}
                   onChange={handleChange}
                 ></Input>
               </div>
@@ -280,7 +224,7 @@ const Profile = () => {
                   size='large'
                   name={'postalCode'}
                   style={{ textTransform: 'uppercase' }}
-                  value={state.postalCode}
+                  value={users?.postalCode}
                   onChange={handleChange}
                 ></Input>
               </div>
@@ -289,7 +233,7 @@ const Profile = () => {
 
           <Button
             type='primary'
-            loading={state.updateLoading}
+            loading={users?.updateLoading}
             size='large'
             block={true}
             htmlType='submit'

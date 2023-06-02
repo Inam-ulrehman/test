@@ -57,7 +57,7 @@ export const usersUpdateProfileThunk = createAsyncThunk(
   'users/usersUpdateProfileThunk',
   async (user, thunkAPI) => {
     try {
-      const response = await customFetch.post('auth/user/updateprofile', user)
+      const response = await customFetch.patch('auth/user/updateprofile', user)
       return response.data
     } catch (error) {
       console.log(error)
@@ -78,6 +78,9 @@ const usersSlice = createSlice({
       const { name, value } = payload
 
       state[name] = value
+    },
+    getStateAddress: (state, { payload }) => {
+      Object.assign(state, payload)
     },
     clearState: (state, { payload }) => {
       state.name = ''
@@ -107,7 +110,7 @@ const usersSlice = createSlice({
         state.isLoading = true
       })
       .addCase(usersGetProfileThunk.fulfilled, (state, { payload }) => {
-        addObjectInState(payload.result[0], state)
+        addObjectInState(payload.result, state)
 
         state.isLoading = false
       })
@@ -128,5 +131,6 @@ const usersSlice = createSlice({
       })
   },
 })
-export const { createFunction, getStateValues, clearState } = usersSlice.actions
+export const { createFunction, getStateValues, clearState, getStateAddress } =
+  usersSlice.actions
 export default usersSlice.reducer
