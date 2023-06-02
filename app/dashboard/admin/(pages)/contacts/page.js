@@ -24,7 +24,6 @@ const Page = () => {
       <div className='search-box'>
         <div className='title'>
           <div className='title-1'>
-            {' '}
             <Text>Total Results:</Text> <Text strong>{contacts.nbHits}</Text>
           </div>
           <div className='title-2'>

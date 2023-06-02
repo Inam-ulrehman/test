@@ -21,8 +21,6 @@ const SearchComponent = () => {
   }
   return (
     <Wrapper>
-      <Input />
-      <Search></Search>
       <Search
         name='search'
         value={contacts.search}
@@ -30,8 +28,6 @@ const SearchComponent = () => {
         placeholder='Name Email Mobile'
         size='medium'
         loading={contacts.isLoading}
-        autoComplete='off'
-        onTouchStart={(e) => e.preventDefault()}
       />
       <Select
         defaultValue=''
@@ -46,14 +42,10 @@ const SearchComponent = () => {
     </Wrapper>
   )
 }
-
 const Wrapper = styled.div`
-  padding: 1rem;
-  /* display: flex; */
-  touch-action: manipulation;
+  display: flex;
   .ant-input-search {
     max-width: 400px;
   }
 `
-
 export default SearchComponent
