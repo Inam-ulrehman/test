@@ -22,9 +22,7 @@ const Page = () => {
   return (
     <Wrapper>
       <div className='search-box'>
-        {/* <h1>
-          Total {contacts.nbHits} / pageNo {contacts.page}
-        </h1> */}
+        {/*       
         <div className='title'>
           <div className='title-1'>
             {' '}
@@ -33,11 +31,11 @@ const Page = () => {
           <div className='title-2'>
             <Text>Page No:</Text> <Text strong>{contacts.page}</Text>
           </div>
-        </div>
+        </div> */}
         <SearchComponent />
       </div>
-      <List />
-      <PaginationComponent />
+      {/* <List />
+      <PaginationComponent /> */}
     </Wrapper>
   )
 }
