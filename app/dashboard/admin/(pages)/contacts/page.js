@@ -22,7 +22,6 @@ const Page = () => {
   return (
     <Wrapper>
       <div className='search-box'>
-        {/*       
         <div className='title'>
           <div className='title-1'>
             {' '}
@@ -31,16 +30,16 @@ const Page = () => {
           <div className='title-2'>
             <Text>Page No:</Text> <Text strong>{contacts.page}</Text>
           </div>
-        </div> */}
+        </div>
         <SearchComponent />
       </div>
-      {/* <List />
-      <PaginationComponent /> */}
+      <List />
+      <PaginationComponent />
     </Wrapper>
   )
 }
 const Wrapper = styled.div`
-  /* .title {
+  .title {
     display: flex;
     .title-2 {
       margin: 0 1rem;
@@ -52,6 +51,6 @@ const Wrapper = styled.div`
     .search-box {
       display: flex;
     }
-  } */
+  }
 `
 export default Page

@@ -50,7 +50,7 @@ const SearchComponent = () => {
 const Wrapper = styled.div`
   padding: 1rem;
   /* display: flex; */
-  touch-action: manipulation; /* for safari */
+  touch-action: manipulation;
   .ant-input-search {
     max-width: 400px;
   }
