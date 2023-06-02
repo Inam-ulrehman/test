@@ -47,6 +47,7 @@ const ChangePassword = () => {
         className='login-form'
         layout='vertical'
         onFinish={onFinish}
+        maxLength={8}
       >
         <Form.Item
           name='password'
@@ -116,6 +117,8 @@ const ChangePassword = () => {
             type='primary'
             htmlType='submit'
             className='login-form-button'
+            size='large'
+            block
           >
             Update Password
           </Button>

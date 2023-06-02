@@ -101,9 +101,9 @@ const Profile = () => {
 
     // eslint-disable-next-line
   }, [])
-  // if (state.isLoading) {
-  //   return <ApiLoading />
-  // }
+  if (state.isLoading) {
+    return <ApiLoading />
+  }
   return (
     <>
       <Wrapper>
@@ -127,7 +127,11 @@ const Profile = () => {
                 name={'name'}
                 value={state.name}
                 onChange={handleChange}
+                required
               ></Input>
+              {!state.name && (
+                <p style={{ color: 'red' }}>Please provide Name</p>
+              )}
             </div>
 
             {/* last name input */}
@@ -174,9 +178,14 @@ const Profile = () => {
                 type='email'
                 size='large'
                 name={'email'}
+                style={{ textTransform: 'lowercase' }}
                 value={state.email}
                 onChange={handleChange}
+                required
               ></Input>
+              {!state.email && (
+                <p style={{ color: 'red' }}>Please provide email</p>
+              )}
             </div>
 
             {/* mobile input */}
@@ -270,6 +279,7 @@ const Profile = () => {
                 <Input
                   size='large'
                   name={'postalCode'}
+                  style={{ textTransform: 'uppercase' }}
                   value={state.postalCode}
                   onChange={handleChange}
                 ></Input>
@@ -283,6 +293,7 @@ const Profile = () => {
             size='large'
             block={true}
             htmlType='submit'
+            style={{ marginTop: '1rem' }}
           >
             Submit
           </Button>
@@ -300,6 +311,9 @@ const Wrapper = styled.div`
   }
   form {
     padding: 1rem;
+    input {
+      text-transform: capitalize;
+    }
   }
 
   @media (min-width: 992px) {

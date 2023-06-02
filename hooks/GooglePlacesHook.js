@@ -102,6 +102,7 @@ const PlacesAutocomplete = ({ state, setState }) => {
         className='form-input'
         placeholder='search here'
         disabled={!ready}
+        size='large'
       />
       {status === 'OK' && (
         <ul style={{ width: `${inputWithRef.current.clientWidth}px` }}>
