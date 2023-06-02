@@ -8,10 +8,8 @@ import Cookies from 'js-cookie'
 import GooglePlacesHook from '@/hooks/GooglePlacesHook'
 import { customFetch } from '@/lib/axios/customFetch'
 import ChangePassword from './ChangePassword'
-import { App, Input } from 'antd'
+import { App, Button, DatePicker, Input, Select } from 'antd'
 import ApiLoading from '@/app/components/singlecomponents/apiLoading'
-
-const genderValue = ['male', 'female', 'other']
 
 const initialState = {
   user: [],
@@ -71,6 +69,13 @@ const Profile = () => {
     const value = e.target.value
     setState({ ...state, [name]: value })
   }
+  const handleDatePickerChange = (date, dateString) => {
+    const formattedDate = moment(dateString).toISOString()
+    setState({ ...state, dob: formattedDate })
+  }
+  const handleGenderChange = (value) => {
+    setState({ ...state, gender: value })
+  }
 
   // Get single User
   const getData = async () => {
@@ -93,6 +98,7 @@ const Profile = () => {
 
   useEffect(() => {
     getData()
+
     // eslint-disable-next-line
   }, [])
   // if (state.isLoading) {
@@ -136,116 +142,150 @@ const Profile = () => {
             </div>
 
             {/* Date of birth input */}
-            <div className='date-of-birth'>
-              <FormInput
-                label={'Date Of Birth'}
-                type={'date'}
-                name={'dob'}
-                value={state.dob?.split('T')[0]}
-                onChange={handleChange}
+            <div className='dob'>
+              <label htmlFor='dob'>Date Of Birth</label>
+
+              <DatePicker
+                value={state.dob ? moment(state.dob) : null}
+                style={{ display: 'block', maxWidth: '100%' }}
+                onChange={handleDatePickerChange}
+                size='large'
               />
             </div>
             {/* gender */}
             <div className='gender'>
               <label htmlFor='gender'>Gender</label>
-              <select
-                name='gender'
-                value={state?.gender}
-                onChange={handleChange}
-              >
-                {genderValue.map((item, index) => {
-                  return (
-                    <option
-                      select={state?.gender?.toString()}
-                      key={index}
-                      value={item}
-                    >
-                      {item}
-                    </option>
-                  )
-                })}
-              </select>
+              <Select
+                defaultValue={state.gender ? state.gender : 'Select'}
+                style={{ display: 'block', maxWidth: '100%' }}
+                onChange={handleGenderChange}
+                options={[
+                  { value: 'Select', label: 'Select' },
+                  { value: 'male', label: 'Male' },
+                  { value: 'female', label: 'Female' },
+                  { value: 'other', label: 'Other' },
+                ]}
+              />
             </div>
             {/* Email input */}
-            <FormInput
-              name={'email'}
-              value={state.email}
-              onChange={handleChange}
-            />
+            <div className='email'>
+              <label htmlFor='email'>Email</label>
+              <Input
+                type='email'
+                size='large'
+                name={'email'}
+                value={state.email}
+                onChange={handleChange}
+              ></Input>
+            </div>
+
             {/* mobile input */}
-            <FormInput
-              type={'number'}
-              name={'mobile'}
-              value={state.mobile === null ? '' : state.mobile}
-              onChange={handleChange}
-            />
+            <div className='mobile'>
+              <label htmlFor='mobile'>Mobile</label>
+              <Input
+                type='number'
+                size='large'
+                name={'mobile'}
+                // state.mobile === null ? '' : state.mobile
+                value={state.mobile}
+                onChange={handleChange}
+              ></Input>
+            </div>
           </div>
           {/* ====================Box Divider=============*/}
           <div className='box-2'>
             <GooglePlacesHook state={state} setState={setState} />
             <div className='box-2-inline'>
               {/* apartment  */}
-              <FormInput
-                name='apartment'
-                label={'Apartment Number'}
-                placeholder={'#'}
-                value={state?.apartment}
-                onChange={handleChange}
-              />
+              <div className='apartment'>
+                <label htmlFor='apartment'>Apartment Number</label>
+                <Input
+                  size='large'
+                  name={'apartment'}
+                  value={state.apartment}
+                  onChange={handleChange}
+                ></Input>
+              </div>
+
               {/* houseNo/buildingNo  */}
-              <FormInput
-                name='house'
-                placeholder={'#'}
-                label={'House / Building #'}
-                value={state?.house}
-                onChange={handleChange}
-              />
+              <div className='house'>
+                <label htmlFor='house'>House / Building #</label>
+                <Input
+                  size='large'
+                  name={'house'}
+                  value={state.house}
+                  onChange={handleChange}
+                ></Input>
+              </div>
             </div>
             {/* street*/}
-            <FormInput
-              name='street'
-              label={'Street Address'}
-              value={state?.street}
-              onChange={handleChange}
-            />
-            <div className='box-2-inline'>
-              {/* city  */}
-              <FormInput
-                name='city'
-                value={state?.city}
+            <div className='street'>
+              <label htmlFor='street'>Street Address</label>
+              <Input
+                size='large'
+                name={'street'}
+                value={state.street}
                 onChange={handleChange}
-              />
-              {/* province */}
-              <FormInput
-                name='province'
-                value={state?.province}
-                onChange={handleChange}
-              />
-            </div>
-            {/* country */}
-            <div className='box-2-inline'>
-              <FormInput
-                name='country'
-                value={state?.country}
-                onChange={handleChange}
-              />
-              {/* postalCode */}
-              <FormInput
-                name='postalCode'
-                label='Postal Code'
-                value={state?.postalCode}
-                onChange={handleChange}
-              />
+              ></Input>
             </div>
 
-            <button
-              disabled={state.updateLoading}
-              className='btn btn-block'
-              type='submit'
-            >
-              {state.updateLoading ? 'Updating...' : 'Update details'}
-            </button>
+            <div className='box-2-inline'>
+              {/* city  */}
+              <div className='city'>
+                <label htmlFor='city'>City</label>
+                <Input
+                  size='large'
+                  name={'city'}
+                  value={state.city}
+                  onChange={handleChange}
+                ></Input>
+              </div>
+
+              {/* province */}
+              <div className='province'>
+                <label htmlFor='province'>Province</label>
+                <Input
+                  size='large'
+                  name={'province'}
+                  value={state.province}
+                  onChange={handleChange}
+                ></Input>
+              </div>
+            </div>
+
+            <div className='box-2-inline'>
+              {/* country */}
+              <div className='country'>
+                <label htmlFor='country'>Country</label>
+                <Input
+                  size='large'
+                  name={'country'}
+                  value={state?.country}
+                  onChange={handleChange}
+                ></Input>
+              </div>
+              {/* postalCode */}
+              <div className='postalCode'>
+                <label htmlFor='postalCode'>Postal Code</label>
+                <Input
+                  size='large'
+                  name={'postalCode'}
+                  value={state.postalCode}
+                  onChange={handleChange}
+                ></Input>
+              </div>
+            </div>
           </div>
+
+          <Button
+            type='primary'
+            loading={state.updateLoading}
+            size='large'
+            block={true}
+            htmlType='submit'
+          >
+            Submit
+          </Button>
         </form>
         <ChangePassword />
       </Wrapper>
