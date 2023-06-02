@@ -31,7 +31,7 @@ const SearchComponent = () => {
         autoComplete='off'
         onTouchStart={(e) => e.preventDefault()}
       />
-      <Select
+      {/* <Select
         defaultValue=''
         style={{ width: 120 }}
         onChange={handleSelect}
@@ -40,15 +40,17 @@ const SearchComponent = () => {
           { value: '-createdAt', label: 'New' },
           { value: 'createdAt', label: 'Old' },
         ]}
-      />
+      /> */}
     </Wrapper>
   )
 }
+
 const Wrapper = styled.div`
   display: flex;
-  touch-action: manipulation;
+  touch-action: manipulation; /* Add this line to prevent zooming on touch devices */
   .ant-input-search {
     max-width: 400px;
   }
 `
+
 export default SearchComponent
