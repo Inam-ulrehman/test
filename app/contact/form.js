@@ -19,7 +19,7 @@ const ContactForm = () => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      notification.success({
+      notification.error({
         message: 'Something went wrong',
         description: error?.response?.data?.msg,
       })
@@ -93,7 +93,7 @@ const ContactForm = () => {
             },
           ]}
         >
-          <TextArea style={{ height: 120 }} />
+          <TextArea style={{ height: 120 }} maxLength={1000} showCount />
         </Form.Item>
 
         <Button loading={loading} block type='primary' htmlType='submit'>
