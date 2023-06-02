@@ -28,6 +28,8 @@ const SearchComponent = () => {
         placeholder='Name Email Mobile'
         size='medium'
         loading={contacts.isLoading}
+        autoComplete='off'
+        onTouchStart={(e) => e.preventDefault()}
       />
       <Select
         defaultValue=''
