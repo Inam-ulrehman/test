@@ -10,8 +10,7 @@ export default function DashboardLayout({ children }) {
       <div className='desktop-nav'>
         <DesktopNav />
       </div>
-
-      {children}
+      <div className='children'>{children}</div>
     </Wrapper>
   )
 }
@@ -25,6 +24,10 @@ const Wrapper = styled.div`
   }
 
   @media (max-width: 920px) {
+    .children {
+      min-height: calc(100vh - 50px);
+      padding-top: 0.5rem;
+    }
     .desktop-nav {
       display: none;
     }

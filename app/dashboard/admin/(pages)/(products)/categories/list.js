@@ -35,7 +35,7 @@ const List = () => {
         <DeleteManyModal />
         <Link href='/dashboard/admin/categories/add'>
           <Button type='primary' icon={<FileAddOutlined />}>
-            New Product
+            New Category
           </Button>
         </Link>
       </div>

@@ -1,7 +1,17 @@
-import React from 'react'
+'use client'
+import Description from './description'
+import UploadImage from './uploadImage'
 
-const Add = () => {
-  return <div>Add</div>
+const Page = () => {
+  const handleDescription = () => {
+    console.log('handleDescription')
+  }
+  return (
+    <div>
+      <Description handleDescription={handleDescription} />
+      <UploadImage />
+    </div>
+  )
 }
 
-export default Add
+export default Page
