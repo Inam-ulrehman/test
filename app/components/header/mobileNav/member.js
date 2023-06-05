@@ -1,6 +1,14 @@
 import { useEffect, useState, useRef } from 'react'
 import { getStateValues } from '@/features/users/usersSlice'
-import { LoginOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons'
+import {
+  DashboardOutlined,
+  LoginOutlined,
+  MailOutlined,
+  ShopOutlined,
+  ShoppingOutlined,
+  UserAddOutlined,
+  UserOutlined,
+} from '@ant-design/icons'
 import { Menu } from 'antd'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
@@ -40,32 +48,25 @@ const Member = ({ setOpen }) => {
       icon: <UserOutlined />,
       children: [
         {
-          label: <Link href={'/'}>LogOut</Link>,
-          key: 'logout',
-          icon: <LoginOutlined />,
-        },
-        {
           label: <Link href={'/dashboard/admin'}>Dashboard</Link>,
           key: 'dashboard',
-          icon: <UserAddOutlined />,
+          icon: <DashboardOutlined />,
         },
 
         isAdmin && {
           label: <Link href={'dashboard/admin/products'}>Products</Link>,
           key: 'products',
-          icon: <UserAddOutlined />,
+          icon: <ShopOutlined />,
           children: [
             {
               label: <Link href={'/dashboard/admin/products'}>Products</Link>,
               key: 'product',
-              icon: <LoginOutlined />,
             },
             {
               label: (
                 <Link href={'/dashboard/admin/categories'}>Categories</Link>
               ),
               key: 'categories',
-              icon: <LoginOutlined />,
             },
             {
               label: (
@@ -74,24 +75,28 @@ const Member = ({ setOpen }) => {
                 </Link>
               ),
               key: 'subcategories',
-              icon: <LoginOutlined />,
             },
           ],
         },
         isAdmin && {
           label: <Link href={'dashboard/admin/orders'}>Orders</Link>,
           key: 'orders',
-          icon: <UserAddOutlined />,
+          icon: <ShoppingOutlined />,
         },
         isAdmin && {
           label: <Link href={'dashboard/admin/contacts'}>Contacts</Link>,
           key: 'contacts',
-          icon: <UserAddOutlined />,
+          icon: <MailOutlined />,
         },
         {
           label: <Link href={'dashboard/admin/profile'}>Profile</Link>,
           key: 'profile',
           icon: <UserAddOutlined />,
+        },
+        {
+          label: <Link href={'/'}>LogOut</Link>,
+          key: 'logout',
+          icon: <LoginOutlined />,
         },
         !isAdmin && {
           label: <Link href={'dashboard/admin/product'}>Not Member</Link>,

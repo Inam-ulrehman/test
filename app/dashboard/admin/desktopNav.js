@@ -6,6 +6,7 @@ import {
   MailOutlined,
   ShopOutlined,
   ShoppingOutlined,
+  DashboardOutlined,
 } from '@ant-design/icons'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -39,7 +40,7 @@ const DesktopNav = () => {
   return (
     <Wrapper>
       <Link href='/dashboard/admin'>
-        <Button type='text' block icon={<LoginOutlined />}>
+        <Button type='text' block icon={<DashboardOutlined />}>
           Dashboard
         </Button>
       </Link>
