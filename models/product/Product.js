@@ -45,6 +45,10 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'product amount must be provided'],
     },
+    details: {
+      type: String,
+      maxlength: 4000,
+    },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',

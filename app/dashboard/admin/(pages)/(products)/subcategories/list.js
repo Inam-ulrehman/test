@@ -7,6 +7,8 @@ import styled from 'styled-components'
 import { columns } from './columns'
 import { DeleteManyModal } from './deleteManyModal'
 import { formatGmailDate } from '@/lib/helper'
+import { FileAddOutlined } from '@ant-design/icons'
+import Link from 'next/link'
 
 const List = () => {
   const dispatch = useDispatch()
@@ -29,7 +31,15 @@ const List = () => {
 
   return (
     <Wrapper>
-      <DeleteManyModal />
+      <div className='delete-many'>
+        <DeleteManyModal />
+        <Link href='/dashboard/admin/subcategories/add'>
+          <Button type='primary' icon={<FileAddOutlined />}>
+            New Product
+          </Button>
+        </Link>
+      </div>
+
       <div className='table-container'>
         <Table
           pagination={false}
@@ -40,20 +50,6 @@ const List = () => {
           dataSource={data}
           columns={columns}
           loading={isLoading}
-          expandable={{
-            expandedRowRender: (record) => (
-              <p
-                className='expand'
-                style={{
-                  margin: 0,
-                  padding: '1rem',
-                }}
-              >
-                {record.message}
-              </p>
-            ),
-            rowExpandable: (record) => record.name !== 'Not Expandable',
-          }}
         />
       </div>
     </Wrapper>
