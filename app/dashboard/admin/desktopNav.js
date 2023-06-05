@@ -44,28 +44,28 @@ const DesktopNav = () => {
   return (
     <Wrapper>
       <Link href='/dashboard/admin'>
-        <Button type='text' block>
+        <Button type='text' block icon={<LoginOutlined />}>
           Dashboard
         </Button>
       </Link>
       <Menu onClick={onClick} mode='inline' items={items} />
       <Link href='/dashboard/admin/products'>
-        <Button type='text' block>
+        <Button type='text' block icon={<LoginOutlined />}>
           Products
         </Button>
       </Link>
       <Link href='/dashboard/admin/orders'>
-        <Button type='text' block>
+        <Button type='text' block icon={<LoginOutlined />}>
           Orders
         </Button>
       </Link>
       <Link href='/dashboard/admin/contacts'>
-        <Button type='text' block>
+        <Button type='text' block icon={<LoginOutlined />}>
           Contacts
         </Button>
       </Link>
       <Link href='/dashboard/admin/profile'>
-        <Button type='text' block>
+        <Button type='text' block icon={<LoginOutlined />}>
           Profile
         </Button>
       </Link>
@@ -76,9 +76,15 @@ const DesktopNav = () => {
 const Wrapper = styled.div`
   position: sticky;
   top: 8.5%;
+  .menuitem {
+    background-color: pink;
+    padding: 0px !important;
+  }
 
   button {
-    text-align: start;
+    display: flex;
+    align-items: center;
+    padding: 26px !important;
   }
 `
 
