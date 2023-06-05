@@ -55,13 +55,18 @@ const Member = ({ setOpen }) => {
           icon: <UserAddOutlined />,
         },
         isAdmin && {
-          label: <Link href={'dashboard/admin/contact'}>Contact</Link>,
-          key: 'contact',
+          label: <Link href={'dashboard/admin/contacts'}>Contacts</Link>,
+          key: 'contacts',
           icon: <UserAddOutlined />,
         },
         isAdmin && {
-          label: <Link href={'dashboard/admin/product'}>Product</Link>,
-          key: 'product',
+          label: <Link href={'dashboard/admin/products'}>Products</Link>,
+          key: 'products',
+          icon: <UserAddOutlined />,
+        },
+        isAdmin && {
+          label: <Link href={'dashboard/admin/orders'}>Orders</Link>,
+          key: 'orders',
           icon: <UserAddOutlined />,
         },
         !isAdmin && {
