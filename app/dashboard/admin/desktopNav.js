@@ -11,14 +11,24 @@ const DesktopNav = () => {
           Dashboard
         </Button>
       </Link>
-      <Link href={'/dashboard/admin/profile'}>
+      <Link href={'/dashboard/admin/products'}>
         <Button type='text' block>
-          Profile
+          Products
+        </Button>
+      </Link>
+      <Link href={'/dashboard/admin/orders'}>
+        <Button type='text' block>
+          Orders
         </Button>
       </Link>
       <Link href={'/dashboard/admin/contacts'}>
         <Button type='text' block>
-          Contact
+          Contacts
+        </Button>
+      </Link>
+      <Link href={'/dashboard/admin/profile'}>
+        <Button type='text' block>
+          Profile
         </Button>
       </Link>
     </Wrapper>
