@@ -54,6 +54,29 @@ const Member = ({ setOpen }) => {
           label: <Link href={'dashboard/admin/products'}>Products</Link>,
           key: 'products',
           icon: <UserAddOutlined />,
+          children: [
+            {
+              label: <Link href={'/dashboard/admin/products'}>Products</Link>,
+              key: 'product',
+              icon: <LoginOutlined />,
+            },
+            {
+              label: (
+                <Link href={'/dashboard/admin/categories'}>Categories</Link>
+              ),
+              key: 'categories',
+              icon: <LoginOutlined />,
+            },
+            {
+              label: (
+                <Link href={'/dashboard/admin/subcategories'}>
+                  Sub Categories
+                </Link>
+              ),
+              key: 'subcategories',
+              icon: <LoginOutlined />,
+            },
+          ],
         },
         isAdmin && {
           label: <Link href={'dashboard/admin/orders'}>Orders</Link>,

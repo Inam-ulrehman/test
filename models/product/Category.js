@@ -9,12 +9,6 @@ const categorySchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    subCategories: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'SubCategory',
-      },
-    ],
     image: {
       type: [],
       required: [true, 'category image must be provided'],
