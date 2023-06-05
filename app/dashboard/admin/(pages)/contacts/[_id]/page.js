@@ -13,10 +13,10 @@ import ErrorPage from './errorPage'
 import styled from 'styled-components'
 import moment from 'moment'
 import Link from 'next/link'
-import { Button, Input } from 'antd'
-import Title from 'antd/es/typography/Title'
+import { Button, Input, Typography } from 'antd'
 
 const Single = ({ params }) => {
+  const { Title } = Typography
   const path = usePathname()
   const dispatch = useDispatch()
   const { contacts } = useSelector((state) => state)
@@ -42,6 +42,7 @@ const Single = ({ params }) => {
 
   useEffect(() => {
     dispatch(singleContactThunk(params))
+    dispatch(getStateValues({ name: 'edit', value: true }))
   }, [path])
   if (isLoading) {
     return <ApiLoading />
