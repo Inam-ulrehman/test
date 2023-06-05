@@ -60,6 +60,7 @@ const Member = ({ setOpen }) => {
     // console.log('click ', e)
     if (e.key === 'logout') {
       Cookies.remove('Authorization_Token')
+      Cookies.remove('isAdmin')
       router.refresh()
       dispatch(getStateValues({ name: 'isMember', value: false }))
     }

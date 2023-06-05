@@ -31,6 +31,7 @@ export async function POST(request, res) {
     return new Response(
       JSON.stringify({
         success: true,
+        isAdmin: user.role === 'admin' ? true : false,
         msg: `Welcome ${titleCase(name)}`,
         token,
       }),

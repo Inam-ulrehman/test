@@ -12,6 +12,7 @@ export async function POST(request, res) {
   await dbConnect()
   const { email, password } = body
   const user = await User.findOne({ email })
+
   if (!user) {
     return new Response(
       JSON.stringify({
@@ -38,6 +39,7 @@ export async function POST(request, res) {
   return new Response(
     JSON.stringify({
       success: true,
+      isAdmin: user.role === 'admin' ? true : false,
       msg: `Welcome back ${titleCase(user.name)}`,
       token,
     }),
