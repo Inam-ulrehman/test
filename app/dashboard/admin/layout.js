@@ -1,6 +1,7 @@
 'use client'
 
 import styled from 'styled-components'
+
 import DesktopNav from './desktopNav'
 
 export default function DashboardLayout({ children }) {
@@ -27,5 +28,11 @@ const Wrapper = styled.div`
     .desktop-nav {
       display: none;
     }
+  }
+
+  /* desktop */
+  @media (min-width: 920px) {
+    display: grid;
+    grid-template-columns: 200px auto;
   }
 `

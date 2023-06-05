@@ -1,18 +1,18 @@
+import { useEffect, useState, useRef } from 'react'
 import { getStateValues } from '@/features/users/usersSlice'
 import { LoginOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons'
 import { Menu } from 'antd'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import styled from 'styled-components'
 
 const Member = ({ setOpen }) => {
   const dispatch = useDispatch()
   const { users } = useSelector((state) => state)
-  const { isMember } = users
+  const { isMember, isAdmin } = users
+
   const login = [
     {
       label: 'Member',
@@ -32,6 +32,7 @@ const Member = ({ setOpen }) => {
       ],
     },
   ]
+
   const logOut = [
     {
       label: 'Member',
@@ -44,20 +45,41 @@ const Member = ({ setOpen }) => {
           icon: <LoginOutlined />,
         },
         {
-          label: <Link href={'/dashboard'}>Dashboard</Link>,
+          label: <Link href={'/dashboard/admin'}>Dashboard</Link>,
           key: 'dashboard',
           icon: <UserAddOutlined />,
         },
-      ],
+        {
+          label: <Link href={'dashboard/admin/profile'}>Profile</Link>,
+          key: 'profile',
+          icon: <UserAddOutlined />,
+        },
+        isAdmin && {
+          label: <Link href={'dashboard/admin/contact'}>Contact</Link>,
+          key: 'contact',
+          icon: <UserAddOutlined />,
+        },
+        isAdmin && {
+          label: <Link href={'dashboard/admin/product'}>Product</Link>,
+          key: 'product',
+          icon: <UserAddOutlined />,
+        },
+        !isAdmin && {
+          label: <Link href={'dashboard/admin/product'}>Not Member</Link>,
+          key: 'product',
+          icon: <UserAddOutlined />,
+        },
+      ].filter(Boolean),
     },
   ]
 
-  const [current, setCurrent] = useState('mail')
-
+  const [current, setCurrent] = useState('')
+  const [openKeys, setOpenKeys] = useState([])
   const router = useRouter()
+
+  const menuRef = useRef(null)
+
   const onClick = (e) => {
-    setOpen(false)
-    // console.log('click ', e)
     if (e.key === 'logout') {
       Cookies.remove('Authorization_Token')
       Cookies.remove('isAdmin')
@@ -65,7 +87,22 @@ const Member = ({ setOpen }) => {
       dispatch(getStateValues({ name: 'isMember', value: false }))
     }
     setCurrent(e.key)
+    closeMenu()
+    setOpen(false)
   }
+
+  const closeMenu = () => {
+    setOpenKeys([])
+  }
+
+  const handleOpenChange = (keys) => {
+    setOpenKeys(keys)
+  }
+
+  useEffect(() => {
+    closeMenu() // Close the menu on initial render
+  }, [])
+
   return (
     <Wrapper>
       <Menu
@@ -73,12 +110,17 @@ const Member = ({ setOpen }) => {
         selectedKeys={[current]}
         mode='inline'
         items={isMember ? logOut : login}
+        openKeys={openKeys}
+        onOpenChange={handleOpenChange}
+        ref={menuRef}
       />
     </Wrapper>
   )
 }
+
 const Wrapper = styled.div`
   min-width: 115px;
   background-color: pink;
 `
+
 export default Member

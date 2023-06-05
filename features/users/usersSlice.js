@@ -24,7 +24,7 @@ const initialState = {
   verified: '',
   password: '',
   isMember: Cookies.get('Authorization_Token') ? true : false,
-  isAdmin: Cookies.get('isAdmin') ? true : false,
+  isAdmin: Cookies.get('isAdmin') === 'true' ? true : false,
   isLoading: false,
   updateLoading: false,
 }
