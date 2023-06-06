@@ -19,7 +19,7 @@ const initialState = {
   page: 1,
   sort: '-createdAt',
   singlePageError: '',
-
+  inputComplete: false,
   revalidate: false,
   isLoading: false,
   editLoading: false,
