@@ -1,6 +1,19 @@
-import { PlusOutlined } from '@ant-design/icons'
-import { Modal, Upload } from 'antd'
+'use client'
+
+import { customFetch } from '@/lib/axios/customFetch'
+import { PlusOutlined, UploadOutlined } from '@ant-design/icons'
+import { App, Button, Modal, Upload } from 'antd'
 import { useState } from 'react'
+import styled from 'styled-components'
+
+const initialState = {
+  uploadImages: [],
+  isLoading: false,
+  totalImages: 0,
+  previewOpen: false,
+  previewImage: '',
+  previewTitle: '',
+}
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -8,60 +21,73 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result)
     reader.onerror = (error) => reject(error)
   })
-const App = () => {
-  const [previewOpen, setPreviewOpen] = useState(false)
-  const [previewImage, setPreviewImage] = useState('')
+const UploadImage = () => {
+  const { message } = App.useApp()
+  const [state, setState] = useState(initialState)
   const [previewTitle, setPreviewTitle] = useState('')
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-2',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-3',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-4',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-xxx',
-      percent: 50,
-      name: 'image.png',
-      status: 'uploading',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-5',
-      name: 'image.png',
-      status: 'error',
-    },
-  ])
-  const handleCancel = () => setPreviewOpen(false)
+  const handleCancel = () => setState({ ...state, previewOpen: false })
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj)
     }
-    setPreviewImage(file.url || file.preview)
-    setPreviewOpen(true)
-    setPreviewTitle(
-      file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
-    )
+
+    setState({
+      ...state,
+      previewOpen: true,
+      previewImage: file.url || file.preview,
+      previewTitle:
+        file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+    })
   }
-  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList)
+  const props = {
+    name: 'file',
+    action: `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+    method: 'post', // Add method as POST
+    multiple: true, // Enable multiple file uploads if needed
+
+    data: {
+      upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_PRESET,
+      folder: 'test',
+    },
+    headers: {
+      'X-Requested-With': null, // Remove the 'X-Requested-With' header to allow the request to Cloudinary
+    },
+    beforeUpload: (file) => {
+      const isPNG = file.type === 'image/png'
+      if (!isPNG) {
+        message.error(`${file.name} is not a png file`)
+      }
+      return isPNG || Upload.LIST_IGNORE
+    },
+    async onChange(info) {
+      setState({ ...state, totalImages: info.fileList.length })
+      if (info.file.status !== 'uploading') {
+        // console.log(info.file, info.fileList)
+      }
+      if (info.file.status === 'removed') {
+        try {
+          const result = await customFetch.post(
+            '/authadmin/product/category/destroyimage',
+            { public_id: info.file.response.public_id }
+          )
+        } catch (error) {
+          message.error({
+            content: 'Error deleting image',
+          })
+        }
+      }
+
+      if (info.file.status === 'done') {
+        message.success({
+          content: 'File Uploaded Successfully',
+        })
+      } else if (info.file.status === 'error') {
+        message.error({
+          content: 'File Uploaded failed',
+        })
+      }
+    },
+  }
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -75,19 +101,18 @@ const App = () => {
     </div>
   )
   return (
-    <>
+    <Wrapper>
       <Upload
-        action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+        {...props}
+        maxCount={6}
         listType='picture-card'
-        fileList={fileList}
         onPreview={handlePreview}
-        onChange={handleChange}
       >
-        {fileList.length >= 8 ? null : uploadButton}
+        {state.totalImages >= 6 ? null : uploadButton}
       </Upload>
       <Modal
-        open={previewOpen}
-        title={previewTitle}
+        open={state.previewOpen}
+        title={state.previewTitle}
         footer={null}
         onCancel={handleCancel}
       >
@@ -96,10 +121,21 @@ const App = () => {
           style={{
             width: '100%',
           }}
-          src={previewImage}
+          src={state.previewImage}
         />
       </Modal>
-    </>
+    </Wrapper>
   )
 }
-export default App
+const Wrapper = styled.div`
+  .upload-list-inline .ant-upload-list-item {
+    float: left;
+    width: 200px;
+    margin-inline-end: 8px;
+  }
+
+  .ant-upload-rtl.upload-list-inline .ant-upload-list-item {
+    float: right;
+  }
+`
+export default UploadImage
