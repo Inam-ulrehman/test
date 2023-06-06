@@ -4,6 +4,7 @@ import { customFetch } from '@/lib/axios/customFetch'
 import { UploadOutlined } from '@ant-design/icons'
 import { App, Button, Upload } from 'antd'
 import { useState } from 'react'
+import styled from 'styled-components'
 
 const initialState = {
   uploadImages: [],
@@ -13,6 +14,7 @@ const Page = () => {
   const { message } = App.useApp()
   const [state, setState] = useState(initialState)
   const { isLoading, uploadImages } = state
+
   const props = {
     name: 'file',
     action: `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
@@ -62,12 +64,27 @@ const Page = () => {
   }
 
   return (
-    <div>
-      <Upload {...props} maxCount={6}>
+    <Wrapper>
+      <Upload
+        {...props}
+        maxCount={6}
+        listType='picture'
+        // defaultFileList={[...fileList]}
+      >
         <Button icon={<UploadOutlined />}>Click to Upload</Button>
       </Upload>
-    </div>
+    </Wrapper>
   )
 }
+const Wrapper = styled.div`
+  .upload-list-inline .ant-upload-list-item {
+    float: left;
+    width: 200px;
+    margin-inline-end: 8px;
+  }
 
+  .ant-upload-rtl.upload-list-inline .ant-upload-list-item {
+    float: right;
+  }
+`
 export default Page
