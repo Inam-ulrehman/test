@@ -1,5 +1,8 @@
 'use client'
-import { getStateValues } from '@/features/products/categoriesSlice'
+import {
+  createCategoriesThunk,
+  getStateValues,
+} from '@/features/products/categoriesSlice'
 import { App, Button, Steps } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -20,7 +23,8 @@ const steps = [
 const StepsComponent = () => {
   const { message } = App.useApp()
   const dispatch = useDispatch()
-  const { currentPage } = useSelector((state) => state.categories)
+  const { categories } = useSelector((state) => state)
+  const { currentPage, isLoading, editLoading } = categories
 
   const items = steps.map((item) => ({
     key: item.title,
@@ -65,17 +69,8 @@ const StepsComponent = () => {
 
 const Wrapper = styled.div`
   padding: 24px;
-  .components {
-    padding: 1rem;
-    background-color: var(--gray-3);
-    border-radius: 0.5rem;
-  }
   .steps-action {
-    margin-top: -5px;
-    padding: 1rem;
-    background-color: var(--gray-3);
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+    margin-top: 24px;
   }
 `
 export default StepsComponent

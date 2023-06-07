@@ -11,42 +11,39 @@ import styled from 'styled-components'
 const FormComponent = () => {
   const { message } = App.useApp()
   const dispatch = useDispatch()
-  const { currentPage, isLoading, result } = useSelector(
-    (state) => state.categories
-  )
-  const handleFinish = async (values) => {
-    // already registered
-    if (result) {
-      console.log('already registered')
-      const response = await dispatch(updateCategoriesThunk(result))
-      console.log(response)
-      if (response.payload.success === false) {
-        return message.error(response.payload.msg)
-      }
-    }
+  const { categories } = useSelector((state) => state)
+  const { currentPage, isLoading, result, name } = categories
 
-    const response = await dispatch(createCategoriesThunk(values))
-    // error handling
-    if (response.payload.success === false) {
-      return message.error(response.payload.msg)
+  const handleSubmit = (value) => {
+    if (result) {
+      return dispatch(updateCategoriesThunk({ categories, message }))
     }
-    dispatch(getStateValues({ name: 'currentPage', value: currentPage + 1 }))
+    dispatch(createCategoriesThunk({ categories, message }))
   }
+
+  const handleChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+    dispatch(getStateValues({ name, value }))
+  }
+
   return (
     <Wrapper>
-      <Form
-        style={{ maxWidth: 400 }}
-        onFinish={handleFinish}
-        initialValues={{ name: result?.name }}
-      >
+      <Form onFinish={handleSubmit} initialValues={{ name: name }}>
         <Form.Item
+          label='Name'
           name='name'
-          rules={[{ required: true, message: 'Please input your Category !' }]}
-          label='Category Name'
+          rules={[{ required: true, message: 'Please enter a name' }]}
         >
-          <Input maxLength={20} showCount />
+          <Input
+            maxLength={30}
+            showCount
+            name='name'
+            id='name'
+            onChange={handleChange}
+          />
         </Form.Item>
-        <Form.Item className='button'>
+        <Form.Item>
           <Button loading={isLoading} type='primary' htmlType='submit'>
             Next Step
           </Button>

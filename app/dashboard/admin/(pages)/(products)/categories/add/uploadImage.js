@@ -132,6 +132,9 @@ const Wrapper = styled.div`
   /* upload layout */
 
   padding: 1rem;
+  background-color: var(--gray-3);
+  margin: 1rem 0;
+  border-radius: 0.5rem;
 
   .upload-list-inline .ant-upload-list-item {
     float: left;

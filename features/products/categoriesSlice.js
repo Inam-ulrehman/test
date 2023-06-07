@@ -28,7 +28,7 @@ export const categoriesThunk = createAsyncThunk(
     try {
       const response = await customFetch('')
 
-      return response.data
+      return response.data.result
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
     }
@@ -38,14 +38,16 @@ export const categoriesThunk = createAsyncThunk(
 export const createCategoriesThunk = createAsyncThunk(
   'categories/createCategoriesThunk',
   async (values, thunkAPI) => {
+    const { categories, message } = values
     try {
       const response = await customFetch.post(
         '/authadmin/category/create',
-        values
+        categories
       )
 
       return response.data
     } catch (error) {
+      message.error(error.response?.data?.msg)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -148,6 +150,7 @@ const categoriesSlice = createSlice({
       })
       .addCase(createCategoriesThunk.fulfilled, (state, { payload }) => {
         addObjectInState(payload, state)
+        state.currentPage = state.currentPage + 1
         state.isLoading = false
       })
       .addCase(createCategoriesThunk.rejected, (state, { payload }) => {
