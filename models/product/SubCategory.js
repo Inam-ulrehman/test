@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const subCategorySchema = new mongoose.Schema(
+const SubCategorySchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -27,6 +27,5 @@ const subCategorySchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-const SubCategory = mongoose.model('SubCategory', subCategorySchema)
-
-module.exports = { SubCategory }
+export default mongoose.models.SubCategory ||
+  mongoose.model('SubCategory', SubCategorySchema)

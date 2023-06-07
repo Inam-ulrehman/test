@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const productSchema = new mongoose.Schema(
+const ProductSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -58,6 +58,5 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-const Product = mongoose.model('Product', productSchema)
-
-module.exports = { Product }
+export default mongoose.models.CProduct ||
+  mongoose.model('CProduct', CProductSchema)
