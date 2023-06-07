@@ -1,4 +1,4 @@
-import { getStateValues } from '@/features/contacts/contactsSlice'
+import { getStateValues } from '@/features/products/categoriesSlice'
 import { customFetch } from '@/lib/axios/customFetch'
 import { ExclamationCircleFilled, DeleteOutlined } from '@ant-design/icons'
 import { App, Button } from 'antd'
@@ -16,9 +16,12 @@ export const DeleteItemModal = ({ record }) => {
         'This action is irreversible and will permanently remove the item from the system. Please note that all associated data and records related to this item will also be deleted.',
       async onOk() {
         try {
-          const response = await customFetch.post('/authadmin/contact/delete', {
-            _id,
-          })
+          const response = await customFetch.post(
+            '/authadmin/category/delete',
+            {
+              _id,
+            }
+          )
           notification.success({
             message: 'success',
             description: response.data.msg,

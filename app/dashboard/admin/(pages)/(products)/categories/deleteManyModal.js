@@ -1,4 +1,4 @@
-import { getStateValues } from '@/features/contacts/contactsSlice'
+import { getStateValues } from '@/features/products/categoriesSlice'
 import { customFetch } from '@/lib/axios/customFetch'
 import { ExclamationCircleFilled, DeleteOutlined } from '@ant-design/icons'
 import { App, Button } from 'antd'
@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 export const DeleteManyModal = ({ record }) => {
   const dispatch = useDispatch()
-  const { revalidate, deleteMany } = useSelector((state) => state.contacts)
+  const { categories } = useSelector((state) => state)
+  const { revalidate, deleteMany } = categories
   const { modal, notification } = App.useApp()
   const showConfirm = async () => {
     modal.confirm({
@@ -17,7 +18,7 @@ export const DeleteManyModal = ({ record }) => {
       async onOk() {
         try {
           const response = await customFetch.post(
-            '/authadmin/contact/deletemany',
+            '/authadmin/category/deletemany',
             {
               _id: deleteMany,
             }

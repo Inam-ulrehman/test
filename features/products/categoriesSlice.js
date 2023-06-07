@@ -35,8 +35,8 @@ export const categoriesThunk = createAsyncThunk(
   }
 )
 // all categories thunk
-export const allContactsThunk = createAsyncThunk(
-  'categories/allContactsThunk',
+export const allCategoriesThunk = createAsyncThunk(
+  'categories/allCategoriesThunk',
   async (state, thunkAPI) => {
     const { search, page, limit, sort } = state
 
@@ -54,12 +54,12 @@ export const allContactsThunk = createAsyncThunk(
 
 //  single categories
 
-export const singleContactThunk = createAsyncThunk(
-  'categories/singleContactThunk',
+export const singleCategoriesThunk = createAsyncThunk(
+  'categories/singleCategoriesThunk',
   async (state, thunkAPI) => {
     try {
       const response = await customFetch.post(
-        '/authadmin/categories/single',
+        '/authadmin/category/single',
         state
       )
 
@@ -71,12 +71,12 @@ export const singleContactThunk = createAsyncThunk(
 )
 //  update categories
 
-export const updateContactThunk = createAsyncThunk(
-  'categories/updateContactThunk',
+export const updateCategoriesThunk = createAsyncThunk(
+  'categories/updateCategoriesThunk',
   async (state, thunkAPI) => {
     try {
       const response = await customFetch.patch(
-        '/authadmin/categories/update',
+        '/authadmin/category/update',
         state
       )
 
@@ -127,39 +127,39 @@ const categoriesSlice = createSlice({
         state.isLoading = false
       })
       // all categories thunk
-      .addCase(allContactsThunk.pending, (state, { payload }) => {
+      .addCase(allCategoriesThunk.pending, (state, { payload }) => {
         state.isLoading = true
       })
-      .addCase(allContactsThunk.fulfilled, (state, { payload }) => {
+      .addCase(allCategoriesThunk.fulfilled, (state, { payload }) => {
         state.list = payload.result
         state.nbHits = payload.nbHits
         state.isLoading = false
       })
-      .addCase(allContactsThunk.rejected, (state, { payload }) => {
+      .addCase(allCategoriesThunk.rejected, (state, { payload }) => {
         state.isLoading = false
       })
       // single categories thunk
-      .addCase(singleContactThunk.pending, (state, { payload }) => {
+      .addCase(singleCategoriesThunk.pending, (state, { payload }) => {
         state.isLoading = true
       })
-      .addCase(singleContactThunk.fulfilled, (state, { payload }) => {
+      .addCase(singleCategoriesThunk.fulfilled, (state, { payload }) => {
         addObjectInState(payload, state)
         state.singlePageError = ''
         state.isLoading = false
       })
-      .addCase(singleContactThunk.rejected, (state, { payload }) => {
+      .addCase(singleCategoriesThunk.rejected, (state, { payload }) => {
         state.singlePageError = payload
         state.isLoading = false
       })
       // update categories thunk
-      .addCase(updateContactThunk.pending, (state, { payload }) => {
+      .addCase(updateCategoriesThunk.pending, (state, { payload }) => {
         state.editLoading = true
       })
-      .addCase(updateContactThunk.fulfilled, (state, { payload }) => {
+      .addCase(updateCategoriesThunk.fulfilled, (state, { payload }) => {
         state.edit = true
         state.editLoading = false
       })
-      .addCase(updateContactThunk.rejected, (state, { payload }) => {
+      .addCase(updateCategoriesThunk.rejected, (state, { payload }) => {
         state.editLoading = false
       })
   },

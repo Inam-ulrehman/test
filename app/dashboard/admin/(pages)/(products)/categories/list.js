@@ -1,4 +1,3 @@
-import { getStateValues } from '@/features/contacts/contactsSlice'
 import { Button, Table } from 'antd'
 import moment from 'moment'
 import React from 'react'
@@ -9,11 +8,12 @@ import { DeleteManyModal } from './deleteManyModal'
 import { formatGmailDate } from '@/lib/helper'
 import { FileAddOutlined } from '@ant-design/icons'
 import Link from 'next/link'
+import { getStateValues } from '@/features/products/categoriesSlice'
 
 const List = () => {
   const dispatch = useDispatch()
-  const { contacts } = useSelector((state) => state)
-  const { list, deleteMany, isLoading } = contacts
+  const { categories } = useSelector((state) => state)
+  const { list, deleteMany, isLoading } = categories
 
   const data = list?.map((item) => {
     const key = item._id

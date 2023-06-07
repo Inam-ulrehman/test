@@ -1,4 +1,4 @@
-import { getStateValues } from '@/features/contacts/contactsSlice'
+import { getStateValues } from '@/features/products/categoriesSlice'
 import { Form, Input, Select } from 'antd'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,8 +7,8 @@ import styled from 'styled-components'
 const SearchComponent = () => {
   const { Search } = Input
   const dispatch = useDispatch()
-  const { contacts } = useSelector((state) => state)
-  const { revalidate } = contacts
+  const { categories } = useSelector((state) => state)
+  const { revalidate, search, isLoading } = categories
 
   const handleChange = (e) => {
     const value = e.target.value
@@ -23,11 +23,11 @@ const SearchComponent = () => {
     <Wrapper>
       <Search
         name='search'
-        value={contacts.search}
+        value={search}
         onChange={handleChange}
-        placeholder='Name Email Mobile'
+        placeholder='Search...'
         size='medium'
-        loading={contacts.isLoading}
+        loading={isLoading}
       />
       <Select
         defaultValue=''
