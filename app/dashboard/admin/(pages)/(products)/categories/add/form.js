@@ -12,10 +12,11 @@ const FormComponent = () => {
   const { message } = App.useApp()
   const dispatch = useDispatch()
   const { categories } = useSelector((state) => state)
-  const { currentPage, isLoading, result, name } = categories
+  const { currentPage, isLoading, editLoading, _id, name } = categories
 
   const handleSubmit = (value) => {
-    if (result) {
+    if (_id) {
+      console.log('🚀 ~ file: form.js ~ line 65 ~ handleSubmit ~ value')
       return dispatch(updateCategoriesThunk({ categories, message }))
     }
     dispatch(createCategoriesThunk({ categories, message }))
@@ -44,7 +45,11 @@ const FormComponent = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Button loading={isLoading} type='primary' htmlType='submit'>
+          <Button
+            loading={isLoading || editLoading}
+            type='primary'
+            htmlType='submit'
+          >
             Next Step
           </Button>
         </Form.Item>

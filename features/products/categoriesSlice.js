@@ -28,7 +28,7 @@ export const categoriesThunk = createAsyncThunk(
     try {
       const response = await customFetch('')
 
-      return response.data.result
+      return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data)
     }
@@ -45,7 +45,7 @@ export const createCategoriesThunk = createAsyncThunk(
         categories
       )
 
-      return response.data
+      return response.data.result
     } catch (error) {
       message.error(error.response?.data?.msg)
       return thunkAPI.rejectWithValue(error.response.data)
@@ -91,16 +91,18 @@ export const singleCategoriesThunk = createAsyncThunk(
 
 export const updateCategoriesThunk = createAsyncThunk(
   'categories/updateCategoriesThunk',
-  async (state, thunkAPI) => {
+  async (values, thunkAPI) => {
+    const { categories, message } = values
     try {
       const response = await customFetch.patch(
         '/authadmin/category/update',
-        state
+        categories
       )
 
       return response.data.result
     } catch (error) {
       console.log(error)
+      message.error(error.response?.data?.msg)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -187,6 +189,7 @@ const categoriesSlice = createSlice({
       })
       .addCase(updateCategoriesThunk.fulfilled, (state, { payload }) => {
         state.edit = true
+        state.currentPage = state.currentPage + 1
         state.editLoading = false
       })
       .addCase(updateCategoriesThunk.rejected, (state, { payload }) => {
