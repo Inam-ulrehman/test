@@ -9,9 +9,8 @@ const categorySchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    image: {
+    images: {
       type: [],
-      required: [true, 'category image must be provided'],
     },
     createdBy: {
       type: mongoose.Types.ObjectId,

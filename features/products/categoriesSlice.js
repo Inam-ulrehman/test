@@ -4,10 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
   name: '',
-  lastName: '',
-  email: '',
-  subject: '',
-  message: '',
+  images: [],
   nbHits: '',
   _id: '',
   createdAt: '',
@@ -19,7 +16,7 @@ const initialState = {
   page: 1,
   sort: '-createdAt',
   singlePageError: '',
-  inputComplete: false,
+  currentPage: 0,
   revalidate: false,
   isLoading: false,
   editLoading: false,

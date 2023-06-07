@@ -110,7 +110,6 @@ const UploadImage = () => {
       >
         {state.totalImages >= 6 ? null : uploadButton}
       </Upload>
-
       <Modal
         open={state.previewOpen}
         title={state.previewTitle}
@@ -129,10 +128,6 @@ const UploadImage = () => {
   )
 }
 const Wrapper = styled.div`
-  /* upload layout */
-
-  padding: 1rem;
-
   .upload-list-inline .ant-upload-list-item {
     float: left;
     width: 200px;
