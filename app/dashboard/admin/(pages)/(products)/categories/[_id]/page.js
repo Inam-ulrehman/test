@@ -26,6 +26,7 @@ const Single = ({ params }) => {
     createdAt,
     updatedAt,
     images,
+    name,
     edit,
     editLoading,
   } = categories
@@ -60,6 +61,7 @@ const Single = ({ params }) => {
             <Input value={moment(updatedAt).format('LLL')} disabled={true} />
           </div>
         </div>
+        <h1>{name}</h1>
       </div>
     </Wrapper>
   )

@@ -7,6 +7,16 @@ export async function PATCH(request, res) {
   const body = await request.json()
   const { name, images, _id } = body
 
+  const check = await Category.find({ name })
+
+  // console.log(check.find((item) => item._id !== _id))
+
+  if (check) {
+    return new Response(
+      JSON.stringify({ success: false, msg: 'Category already exists' }),
+      { status: StatusCodes.OK }
+    )
+  }
   await dbConnect()
   try {
     const result = await Category.findByIdAndUpdate(

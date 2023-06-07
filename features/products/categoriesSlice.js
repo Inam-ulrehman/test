@@ -34,6 +34,22 @@ export const categoriesThunk = createAsyncThunk(
     }
   }
 )
+// Create categories thunk
+export const createCategoriesThunk = createAsyncThunk(
+  'categories/createCategoriesThunk',
+  async (values, thunkAPI) => {
+    try {
+      const response = await customFetch.post(
+        '/authadmin/category/create',
+        values
+      )
+
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
 // all categories thunk
 export const allCategoriesThunk = createAsyncThunk(
   'categories/allCategoriesThunk',
@@ -124,6 +140,17 @@ const categoriesSlice = createSlice({
       .addCase(categoriesThunk.rejected, (state, { payload }) => {
         console.log('promise rejected')
         console.log(payload)
+        state.isLoading = false
+      })
+      // create categories thunk
+      .addCase(createCategoriesThunk.pending, (state, { payload }) => {
+        state.isLoading = true
+      })
+      .addCase(createCategoriesThunk.fulfilled, (state, { payload }) => {
+        addObjectInState(payload, state)
+        state.isLoading = false
+      })
+      .addCase(createCategoriesThunk.rejected, (state, { payload }) => {
         state.isLoading = false
       })
       // all categories thunk
