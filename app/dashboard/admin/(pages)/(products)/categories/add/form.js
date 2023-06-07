@@ -16,7 +16,6 @@ const FormComponent = () => {
 
   const handleSubmit = (value) => {
     if (_id) {
-      console.log('🚀 ~ file: form.js ~ line 65 ~ handleSubmit ~ value')
       return dispatch(updateCategoriesThunk({ categories, message }))
     }
     dispatch(createCategoriesThunk({ categories, message }))
