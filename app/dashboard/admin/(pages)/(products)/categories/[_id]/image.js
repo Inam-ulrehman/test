@@ -29,7 +29,7 @@ const getBase64 = (file) =>
 
 // upload image to cloudinary
 
-const UploadImage = () => {
+const ImageComponent = () => {
   const { message } = App.useApp()
   const dispatch = useDispatch()
   const { _id, images } = useSelector((state) => state.categories)
@@ -189,6 +189,7 @@ const Wrapper = styled.div`
   background-color: var(--gray-3);
   margin: 1rem 0;
   border-radius: 0.5rem;
+  max-width: fit-content;
 
   .upload-list-inline .ant-upload-list-item {
     float: left;
@@ -200,4 +201,4 @@ const Wrapper = styled.div`
     float: right;
   }
 `
-export default UploadImage
+export default ImageComponent

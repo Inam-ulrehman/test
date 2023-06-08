@@ -11,9 +11,12 @@ import moment from 'moment'
 import Link from 'next/link'
 import { Button, Input, Typography } from 'antd'
 import {
+  clearState,
   getStateValues,
   singleCategoriesThunk,
 } from '@/features/products/categoriesSlice'
+import FormComponent from './form'
+import ImageComponent from './image'
 
 const Single = ({ params }) => {
   const { Title } = Typography
@@ -38,6 +41,7 @@ const Single = ({ params }) => {
   }
 
   useEffect(() => {
+    dispatch(clearState())
     dispatch(singleCategoriesThunk(params))
     dispatch(getStateValues({ name: 'edit', value: true }))
   }, [path])
@@ -50,22 +54,42 @@ const Single = ({ params }) => {
 
   return (
     <Wrapper edit={edit}>
+      {/* header */}
       <div className='header'>
-        <div className='box time'>
-          <div className='box-1'>
-            <span>Created At</span>
-            <Input value={moment(createdAt).format('LLL')} disabled={true} />
+        <div className='time'>
+          <div className='createdAt'>
+            Created At : <span>{moment(createdAt).format('LLL')}</span>
           </div>
-          <div className='box-2'>
-            <span> Updated At</span>
-            <Input value={moment(updatedAt).format('LLL')} disabled={true} />
+          <div className='updatedAt'>
+            Updated At : <span>{moment(updatedAt).format('LLL')}</span>
           </div>
         </div>
-        <h1>{name}</h1>
       </div>
+      {/* image */}
+      <ImageComponent />
+      {/* form */}
+      <FormComponent />
     </Wrapper>
   )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+  .time {
+    display: flex;
+    flex-wrap: wrap;
+    .createdAt,
+    .updatedAt {
+      border: 1px solid var(--gray-5);
+      padding: 5px;
+      border-top: transparent;
+    }
+    .createdAt {
+      margin-right: 10px;
+      border-left: transparent;
+    }
+    span {
+      font-weight: 500;
+    }
+  }
+`
 export default Single
