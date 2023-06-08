@@ -12,13 +12,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const initialState = {
-  uploadImages: [],
   isLoading: false,
   totalImages: 0,
   previewOpen: false,
   previewImage: '',
   previewTitle: '',
 }
+// show image locally
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -26,18 +26,22 @@ const getBase64 = (file) =>
     reader.onload = () => resolve(reader.result)
     reader.onerror = (error) => reject(error)
   })
+
+// upload image to cloudinary
+
 const UploadImage = () => {
   const { message } = App.useApp()
-  const { _id, images } = useSelector((state) => state.categories)
   const dispatch = useDispatch()
+  const { _id, images } = useSelector((state) => state.categories)
   const [state, setState] = useState(initialState)
-  const [previewTitle, setPreviewTitle] = useState('')
+
   const handleCancel = () => setState({ ...state, previewOpen: false })
+
+  // preview image
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj)
     }
-
     setState({
       ...state,
       previewOpen: true,
@@ -46,6 +50,7 @@ const UploadImage = () => {
         file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
     })
   }
+  // All images functions here
   const props = {
     name: 'file',
     action: `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
@@ -74,39 +79,56 @@ const UploadImage = () => {
       }
       if (info.file.status === 'removed') {
         const uid = info.file.response.asset_id
-        const removeImage = images.filter((image) => image.uid !== uid)
+        console.log('delete image', uid)
+        console.log('before removeImage', images)
+        let removeImage = images.filter((image) => image.uid !== uid)
+        if (removeImage.length === 0) {
+          removeImage = []
+        }
 
+        console.log('after removeImage', removeImage)
+        // delete image from cloudinary
         try {
           const result = await customFetch.post(
             '/authadmin/product/category/destroyimage',
             { public_id: info.file.response.public_id }
           )
+          // update image in redux
           dispatch(getStateValues({ name: 'images', value: removeImage }))
+          // update image in database
+          dispatch(
+            updateCategoriesThunk({
+              categories: { images: removeImage, _id },
+              message,
+            })
+          )
+          // cloudinary response
         } catch (error) {
-          console.log(error)
           message.error({
             content: 'Error deleting image from cloudinary',
           })
         }
       }
-
+      //  upload image to cloudinary complete
       if (info.file.status === 'done') {
+        // formate of saving image in database
         const filterImages = info.fileList.map((file) => {
           const uid = file.response.asset_id
           const name = file.response.original_filename
           const status = 'done'
           const url = file.response.secure_url
-          const response = {
-            secure_url: file.response.secure_url,
-            public_id: file.response.public_id,
-          }
+          const response = file.response
 
           return { uid, name, status, url, response }
         })
 
         const categories = { images: filterImages, _id }
+        // update image in redux
         dispatch(getStateValues({ name: 'images', value: filterImages }))
+        // update image in database
         dispatch(updateCategoriesThunk({ categories, message }))
+
+        // error uploading image to cloudinary
       } else if (info.file.status === 'error') {
         message.error({
           content: 'File failed to upload cloudinary',
@@ -114,6 +136,7 @@ const UploadImage = () => {
       }
     },
   }
+  // upload button
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -134,6 +157,7 @@ const UploadImage = () => {
         listType='picture-card'
         onPreview={handlePreview}
       >
+        {/* Max limit is 6 */}
         {state.totalImages >= 6 ? null : uploadButton}
       </Upload>
 

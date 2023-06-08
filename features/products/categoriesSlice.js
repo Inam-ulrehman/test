@@ -126,8 +126,13 @@ const categoriesSlice = createSlice({
     },
     clearState: (state, { payload }) => {
       state.name = ''
-      state.lastName = ''
-      state.email = ''
+      state.images = []
+      state._id = ''
+      state.createdAt = ''
+      state.updatedAt = ''
+      state.createdBy = ''
+      state.search = ''
+      state.currentPage = 0
     },
   },
 

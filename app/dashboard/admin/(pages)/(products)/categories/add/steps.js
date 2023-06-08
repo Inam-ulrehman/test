@@ -1,13 +1,11 @@
 'use client'
-import {
-  createCategoriesThunk,
-  getStateValues,
-} from '@/features/products/categoriesSlice'
+import { clearState, getStateValues } from '@/features/products/categoriesSlice'
 import { App, Button, Steps } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import FormComponent from './form'
 import UploadImage from './uploadImage'
+
 const steps = [
   {
     title: 'First',
@@ -36,9 +34,8 @@ const StepsComponent = () => {
     dispatch(getStateValues({ name: 'currentPage', value: currentPage - 1 }))
   }
   const handleDone = () => {
-    message.success('Processing complete!')
-    dispatch(getStateValues({ name: 'currentPage', value: 0 }))
-    dispatch(getStateValues({ name: 'name', value: '' }))
+    message.success('Processing complete')
+    dispatch(clearState())
   }
   return (
     <Wrapper>
