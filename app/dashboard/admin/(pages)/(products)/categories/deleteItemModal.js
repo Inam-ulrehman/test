@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 export const DeleteItemModal = ({ record }) => {
   const dispatch = useDispatch()
-  const { revalidate } = useSelector((state) => state.contacts)
+  const { revalidate } = useSelector((state) => state.categories)
   const { modal, notification } = App.useApp()
   const showConfirm = async (_id) => {
     modal.confirm({
