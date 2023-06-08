@@ -45,7 +45,7 @@ const StepsComponent = () => {
 
       <div className='steps-action'>
         {currentPage === steps.length - 1 && (
-          <Button type='primary' onClick={handleDone}>
+          <Button loading={editLoading} type='primary' onClick={handleDone}>
             Done
           </Button>
         )}
