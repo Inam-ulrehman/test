@@ -5,6 +5,12 @@ import Link from 'next/link'
 
 export const columns = [
   {
+    title: 'Image',
+    dataIndex: 'image',
+    key: 'image',
+    ellipsis: true,
+  },
+  {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',

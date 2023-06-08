@@ -1,4 +1,4 @@
-import { Button, Table } from 'antd'
+import { Button, Image, Table } from 'antd'
 import moment from 'moment'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,7 +9,8 @@ import { formatGmailDate } from '@/lib/helper'
 import { FileAddOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import { getStateValues } from '@/features/products/categoriesSlice'
-
+const url =
+  'https://res.cloudinary.com/inam6530/image/upload/v1686240165/Inamwebsolutions-nextjs/szm6vst9cxqofzaukoil.png'
 const List = () => {
   const dispatch = useDispatch()
   const { categories } = useSelector((state) => state)
@@ -17,12 +18,13 @@ const List = () => {
 
   const data = list?.map((item) => {
     const key = item._id
-
+    const src = item.images[0]?.url
     const date = formatGmailDate(item.createdAt)
     return {
       ...item,
       key,
       date,
+      image: <Image width={70} height={70} src={src} fallback={url} />,
     }
   })
   const handleChange = (value) => {
