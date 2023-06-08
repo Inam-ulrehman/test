@@ -24,7 +24,7 @@ const List = () => {
       ...item,
       key,
       date,
-      image: <Image width={70} height={70} src={src} fallback={url} />,
+      image: <Image width={94} height={79} src={src} fallback={url} />,
     }
   })
   const handleChange = (value) => {

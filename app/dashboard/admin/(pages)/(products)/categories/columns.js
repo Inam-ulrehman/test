@@ -25,6 +25,7 @@ export const columns = [
     dataIndex: 'date',
     key: 'date',
     width: 110,
+    responsive: ['md'],
 
     // defaultSortOrder: 'descend',
     sorter: (a, b) => a.mobile - b.mobile,
