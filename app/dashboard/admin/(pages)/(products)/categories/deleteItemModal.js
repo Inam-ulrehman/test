@@ -17,7 +17,7 @@ export const DeleteItemModal = ({ record }) => {
       async onOk() {
         try {
           const response = await customFetch.post(
-            '/authadmin/category/delete',
+            '/authadmin/product/category/delete',
             {
               _id,
             }

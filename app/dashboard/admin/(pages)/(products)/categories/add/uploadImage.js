@@ -1,9 +1,14 @@
 'use client'
 
+import {
+  getStateValues,
+  updateCategoriesThunk,
+} from '@/features/products/categoriesSlice'
 import { customFetch } from '@/lib/axios/customFetch'
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons'
 import { App, Button, Modal, Upload } from 'antd'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const initialState = {
@@ -23,6 +28,8 @@ const getBase64 = (file) =>
   })
 const UploadImage = () => {
   const { message } = App.useApp()
+  const { _id, images } = useSelector((state) => state.categories)
+  const dispatch = useDispatch()
   const [state, setState] = useState(initialState)
   const [previewTitle, setPreviewTitle] = useState('')
   const handleCancel = () => setState({ ...state, previewOpen: false })
@@ -52,6 +59,7 @@ const UploadImage = () => {
     headers: {
       'X-Requested-With': null, // Remove the 'X-Requested-With' header to allow the request to Cloudinary
     },
+    defaultFileList: images,
     beforeUpload: (file) => {
       const isPNG = file.type === 'image/png'
       if (!isPNG) {
@@ -65,25 +73,43 @@ const UploadImage = () => {
         // console.log(info.file, info.fileList)
       }
       if (info.file.status === 'removed') {
+        const uid = info.file.response.asset_id
+        const removeImage = images.filter((image) => image.uid !== uid)
+
         try {
           const result = await customFetch.post(
             '/authadmin/product/category/destroyimage',
             { public_id: info.file.response.public_id }
           )
+          dispatch(getStateValues({ name: 'images', value: removeImage }))
         } catch (error) {
+          console.log(error)
           message.error({
-            content: 'Error deleting image',
+            content: 'Error deleting image from cloudinary',
           })
         }
       }
 
       if (info.file.status === 'done') {
-        message.success({
-          content: 'File Uploaded Successfully',
+        const filterImages = info.fileList.map((file) => {
+          const uid = file.response.asset_id
+          const name = file.response.original_filename
+          const status = 'done'
+          const url = file.response.secure_url
+          const response = {
+            secure_url: file.response.secure_url,
+            public_id: file.response.public_id,
+          }
+
+          return { uid, name, status, url, response }
         })
+
+        const categories = { images: filterImages, _id }
+        dispatch(getStateValues({ name: 'images', value: filterImages }))
+        dispatch(updateCategoriesThunk({ categories, message }))
       } else if (info.file.status === 'error') {
         message.error({
-          content: 'File Uploaded failed',
+          content: 'File failed to upload cloudinary',
         })
       }
     },

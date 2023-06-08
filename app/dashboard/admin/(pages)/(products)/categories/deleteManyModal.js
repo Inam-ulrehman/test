@@ -18,7 +18,7 @@ export const DeleteManyModal = ({ record }) => {
       async onOk() {
         try {
           const response = await customFetch.post(
-            '/authadmin/category/deletemany',
+            '/authadmin/product/category/deletemany',
             {
               _id: deleteMany,
             }

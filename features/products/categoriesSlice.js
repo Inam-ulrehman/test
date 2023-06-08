@@ -9,6 +9,7 @@ const initialState = {
   _id: '',
   createdAt: '',
   updatedAt: '',
+  createdBy: '',
   list: [],
   deleteMany: [],
   search: '',
@@ -41,7 +42,7 @@ export const createCategoriesThunk = createAsyncThunk(
     const { categories, message } = values
     try {
       const response = await customFetch.post(
-        '/authadmin/category/create',
+        '/authadmin/product/category/create',
         categories
       )
 
@@ -60,7 +61,7 @@ export const allCategoriesThunk = createAsyncThunk(
 
     try {
       const response = await customFetch(
-        `/authadmin/category/all?search=${search}&sort=${sort}&page=${page}&limit=${limit}`
+        `/authadmin/product/category/all?search=${search}&sort=${sort}&page=${page}&limit=${limit}`
       )
 
       return response.data
@@ -77,7 +78,7 @@ export const singleCategoriesThunk = createAsyncThunk(
   async (state, thunkAPI) => {
     try {
       const response = await customFetch.post(
-        '/authadmin/category/single',
+        '/authadmin/product/category/single',
         state
       )
 
@@ -95,7 +96,7 @@ export const updateCategoriesThunk = createAsyncThunk(
     const { categories, message } = values
     try {
       const response = await customFetch.patch(
-        '/authadmin/category/update',
+        '/authadmin/product/category/update',
         categories
       )
 
@@ -188,8 +189,11 @@ const categoriesSlice = createSlice({
         state.editLoading = true
       })
       .addCase(updateCategoriesThunk.fulfilled, (state, { payload }) => {
-        state.edit = true
-        state.currentPage = state.currentPage + 1
+        if (state.currentPage === 1) {
+          // Do nothing if the current page is 1
+        } else {
+          state.currentPage = state.currentPage + 1
+        }
         state.editLoading = false
       })
       .addCase(updateCategoriesThunk.rejected, (state, { payload }) => {
