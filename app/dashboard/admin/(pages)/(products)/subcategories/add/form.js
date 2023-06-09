@@ -7,6 +7,7 @@ import { App, Button, Form, Input } from 'antd'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
+import FormSelect from './form-select'
 
 const FormComponent = () => {
   const { message } = App.useApp()
@@ -31,6 +32,7 @@ const FormComponent = () => {
     <Wrapper>
       <Form onFinish={handleSubmit} initialValues={{ name: name }}>
         <div className='form-layout'>
+          <FormSelect />
           <Form.Item
             label='Name'
             name='name'

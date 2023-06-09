@@ -4,17 +4,18 @@ const SubCategorySchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'subCategory name must be provided'],
+      required: [true, 'SubCategory name must be provided'],
       maxlength: 200,
       lowercase: true,
       trim: true,
     },
-    category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
-      required: [true, 'Please provide category'],
-    },
-
+    categories: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: [true, 'Please provide at least one category'],
+      },
+    ],
     images: {
       type: [],
     },

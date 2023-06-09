@@ -6,7 +6,7 @@ import SubCategory from '@/models/product/SubCategory'
 
 export async function POST(request, res) {
   const body = await request.json()
-  const { name } = body
+  const { name, categories } = body
 
   const _id = request.headers.get('userid')
 
@@ -22,7 +22,11 @@ export async function POST(request, res) {
       )
     }
 
-    const result = await SubCategory.create({ createdBy: _id, name })
+    const result = await SubCategory.create({
+      createdBy: _id,
+      name,
+      categories,
+    })
 
     return new Response(
       JSON.stringify({ success: true, msg: 'Created', result }),
