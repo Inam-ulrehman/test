@@ -9,7 +9,9 @@ const SelectComponent = () => {
   const { notification } = App.useApp()
   const dispatch = useDispatch()
   const { staticData, staticLoading } = useSelector((state) => state.categories)
-  const { selectedItems } = useSelector((state) => state.subcategories)
+  const { selectedItems, categories } = useSelector(
+    (state) => state.subcategories
+  )
 
   const handleChange = (selectedItems) => {
     const array1 = selectedItems
@@ -25,6 +27,7 @@ const SelectComponent = () => {
   }
 
   useEffect(() => {
+    // get categories
     dispatch(staticCategoriesThunk({ notification }))
   }, [])
   return (
