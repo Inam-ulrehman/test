@@ -8,10 +8,12 @@ import { DeleteManyModal } from './deleteManyModal'
 import { formatGmailDate } from '@/lib/helper'
 import { FileAddOutlined } from '@ant-design/icons'
 import Link from 'next/link'
-import { getStateValues } from '@/features/products/categoriesSlice'
+import { clearState, getStateValues } from '@/features/products/categoriesSlice'
+import { useRouter } from 'next/navigation'
 const url =
   'https://res.cloudinary.com/inam6530/image/upload/v1686240165/Inamwebsolutions-nextjs/szm6vst9cxqofzaukoil.png'
 const List = () => {
+  const router = useRouter()
   const dispatch = useDispatch()
   const { categories } = useSelector((state) => state)
   const { list, deleteMany, isLoading } = categories
@@ -30,16 +32,21 @@ const List = () => {
   const handleChange = (value) => {
     dispatch(getStateValues({ name: 'deleteMany', value: value }))
   }
-
+  const handleButton = () => {
+    dispatch(clearState())
+    router.push('/dashboard/admin/categories/add')
+  }
   return (
     <Wrapper>
       <div className='delete-many'>
         <DeleteManyModal />
-        <Link href='/dashboard/admin/categories/add'>
-          <Button type='primary' icon={<FileAddOutlined />}>
-            New Category
-          </Button>
-        </Link>
+        <Button
+          onClick={handleButton}
+          type='primary'
+          icon={<FileAddOutlined />}
+        >
+          New Category
+        </Button>
       </div>
 
       <div className='table-container'>
