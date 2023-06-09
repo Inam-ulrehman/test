@@ -5,6 +5,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const initialState = {
   name: '',
   images: [],
+  categories: [],
+  selectedItems: [],
   nbHits: '',
   _id: '',
   createdAt: '',
@@ -25,9 +27,9 @@ const initialState = {
 }
 export const subcategoriesThunk = createAsyncThunk(
   'subcategories/subcategoriesThunk',
-  async (_, thunkAPI) => {
+  async (values, thunkAPI) => {
     try {
-      const response = await customFetch('')
+      const response = await customFetch('/authadmin/product/category/static')
 
       return response.data
     } catch (error) {

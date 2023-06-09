@@ -13,7 +13,15 @@ const FormComponent = () => {
   const { message } = App.useApp()
   const dispatch = useDispatch()
   const { subcategories } = useSelector((state) => state)
-  const { currentPage, isLoading, editLoading, _id, name } = subcategories
+  const {
+    currentPage,
+    isLoading,
+    editLoading,
+    _id,
+    name,
+    categories,
+    selectedItems,
+  } = subcategories
 
   const handleSubmit = (value) => {
     if (_id) {
@@ -30,7 +38,13 @@ const FormComponent = () => {
 
   return (
     <Wrapper>
-      <Form onFinish={handleSubmit} initialValues={{ name: name }}>
+      <Form
+        onFinish={handleSubmit}
+        initialValues={{
+          name: name,
+          categories: selectedItems,
+        }}
+      >
         <div className='form-layout'>
           <FormSelect />
           <Form.Item

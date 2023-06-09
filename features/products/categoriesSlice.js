@@ -11,6 +11,8 @@ const initialState = {
   updatedAt: '',
   createdBy: '',
   list: [],
+  staticData: [],
+  staticLoading: false,
   deleteMany: [],
   search: '',
   limit: 10,
@@ -31,6 +33,23 @@ export const categoriesThunk = createAsyncThunk(
 
       return response.data
     } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
+// static categories thunk
+export const staticCategoriesThunk = createAsyncThunk(
+  'categories/staticCategoriesThunk',
+  async (_, thunkAPI) => {
+    try {
+      const response = await customFetch('/authadmin/product/category/static')
+
+      return response.data
+    } catch (error) {
+      notification.error({
+        message: 'Error getting Categories',
+        description: error.response?.data?.msg,
+      })
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -151,6 +170,17 @@ const categoriesSlice = createSlice({
         console.log('promise rejected')
         console.log(payload)
         state.isLoading = false
+      })
+      //  static categories thunk
+      .addCase(staticCategoriesThunk.pending, (state, { payload }) => {
+        state.staticLoading = true
+      })
+      .addCase(staticCategoriesThunk.fulfilled, (state, { payload }) => {
+        state.staticData = payload.result
+        state.staticLoading = false
+      })
+      .addCase(staticCategoriesThunk.rejected, (state, { payload }) => {
+        state.staticLoading = false
       })
       // create categories thunk
       .addCase(createCategoriesThunk.pending, (state, { payload }) => {

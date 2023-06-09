@@ -5,7 +5,7 @@ import SubCategory from '@/models/product/SubCategory'
 
 export async function PATCH(request, res) {
   const body = await request.json()
-  const { name, images, _id } = body
+  const { name, images, _id, categories } = body
 
   await dbConnect()
 
@@ -30,7 +30,7 @@ export async function PATCH(request, res) {
     // Update the category
     const updatedSubCategory = await SubCategory.findByIdAndUpdate(
       { _id },
-      { name, images },
+      { name, images, categories },
       { new: true }
     )
 
