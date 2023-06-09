@@ -12,11 +12,11 @@ const SubCategorySchema = new mongoose.Schema(
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
+      required: [true, 'Please provide category'],
     },
 
-    image: {
+    images: {
       type: [],
-      required: [true, 'subCategory image must be provided'],
     },
     createdBy: {
       type: mongoose.Types.ObjectId,

@@ -1,13 +1,13 @@
 import React from 'react'
 import { Pagination } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { getStateValues } from '@/features/contacts/contactsSlice'
+import { getStateValues } from '@/features/products/subcategoriesSlice'
 import styled from 'styled-components'
 
 const PaginationComponent = () => {
-  const { contacts } = useSelector((state) => state)
+  const { subcategories } = useSelector((state) => state)
   const dispatch = useDispatch()
-  const { page, nbHits, limit } = contacts
+  const { page, nbHits, limit } = subcategories
   const onChange = (page, pageSize) => {
     window.scrollTo({
       top: 0,

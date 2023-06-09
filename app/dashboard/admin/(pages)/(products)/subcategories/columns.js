@@ -5,6 +5,12 @@ import Link from 'next/link'
 
 export const columns = [
   {
+    title: 'Image',
+    dataIndex: 'image',
+    key: 'image',
+    ellipsis: true,
+  },
+  {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
@@ -13,32 +19,13 @@ export const columns = [
     // sorter: (a, b) => a.name.length - b.name.length,
     // sortDirections: ['descend'],
   },
-  {
-    title: 'Subject',
-    dataIndex: 'subject',
-    key: 'subject',
-    ellipsis: true,
-    responsive: ['md'],
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-    ellipsis: true,
-    responsive: ['lg'],
-  },
-  {
-    title: 'Mobile',
-    dataIndex: 'mobile',
-    key: 'mobile',
-    ellipsis: true,
-    responsive: ['lg'],
-  },
+
   {
     title: 'Time',
     dataIndex: 'date',
     key: 'date',
     width: 110,
+    responsive: ['md'],
 
     // defaultSortOrder: 'descend',
     sorter: (a, b) => a.mobile - b.mobile,
@@ -50,7 +37,7 @@ export const columns = [
     width: 120,
     render: (_, record) => (
       <Space size='middle'>
-        <Link href={`/dashboard/admin/contacts/${record._id}`}>
+        <Link href={`/dashboard/admin/subcategories/${record._id}`}>
           <Button icon={<EditOutlined />}></Button>
         </Link>
 

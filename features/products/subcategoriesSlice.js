@@ -4,14 +4,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
   name: '',
-  lastName: '',
-  email: '',
-  subject: '',
-  message: '',
+  images: [],
   nbHits: '',
   _id: '',
   createdAt: '',
   updatedAt: '',
+  createdBy: '',
   list: [],
   deleteMany: [],
   search: '',
@@ -19,7 +17,7 @@ const initialState = {
   page: 1,
   sort: '-createdAt',
   singlePageError: '',
-
+  currentPage: 0,
   revalidate: false,
   isLoading: false,
   editLoading: false,
@@ -37,15 +35,33 @@ export const subcategoriesThunk = createAsyncThunk(
     }
   }
 )
+// Create subcategories thunk
+export const createCategoriesThunk = createAsyncThunk(
+  'subcategories/createCategoriesThunk',
+  async (values, thunkAPI) => {
+    const { subcategories, message } = values
+    try {
+      const response = await customFetch.post(
+        '/authadmin/product/subcategory/create',
+        subcategories
+      )
+
+      return response.data.result
+    } catch (error) {
+      message.error(error.response?.data?.msg)
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  }
+)
 // all subcategories thunk
-export const allContactsThunk = createAsyncThunk(
-  'subcategories/allContactsThunk',
+export const allCategoriesThunk = createAsyncThunk(
+  'subcategories/allCategoriesThunk',
   async (state, thunkAPI) => {
     const { search, page, limit, sort } = state
 
     try {
       const response = await customFetch(
-        `/authadmin/category/all?search=${search}&sort=${sort}&page=${page}&limit=${limit}`
+        `/authadmin/product/subcategory/all?search=${search}&sort=${sort}&page=${page}&limit=${limit}`
       )
 
       return response.data
@@ -57,12 +73,12 @@ export const allContactsThunk = createAsyncThunk(
 
 //  single subcategories
 
-export const singleContactThunk = createAsyncThunk(
-  'subcategories/singleContactThunk',
+export const singleCategoriesThunk = createAsyncThunk(
+  'subcategories/singleCategoriesThunk',
   async (state, thunkAPI) => {
     try {
       const response = await customFetch.post(
-        '/authadmin/subcategories/single',
+        '/authadmin/product/subcategory/single',
         state
       )
 
@@ -74,18 +90,20 @@ export const singleContactThunk = createAsyncThunk(
 )
 //  update subcategories
 
-export const updateContactThunk = createAsyncThunk(
-  'subcategories/updateContactThunk',
-  async (state, thunkAPI) => {
+export const updateCategoriesThunk = createAsyncThunk(
+  'subcategories/updateCategoriesThunk',
+  async (values, thunkAPI) => {
+    const { subcategories, message } = values
     try {
       const response = await customFetch.patch(
-        '/authadmin/subcategories/update',
-        state
+        '/authadmin/product/subcategory/update',
+        subcategories
       )
 
       return response.data.result
     } catch (error) {
       console.log(error)
+      message.error(error.response?.data?.msg)
       return thunkAPI.rejectWithValue(error.response.data)
     }
   }
@@ -108,8 +126,13 @@ const subcategoriesSlice = createSlice({
     },
     clearState: (state, { payload }) => {
       state.name = ''
-      state.lastName = ''
-      state.email = ''
+      state.images = []
+      state._id = ''
+      state.createdAt = ''
+      state.updatedAt = ''
+      state.createdBy = ''
+      state.search = ''
+      state.currentPage = 0
     },
   },
 
@@ -129,40 +152,56 @@ const subcategoriesSlice = createSlice({
         console.log(payload)
         state.isLoading = false
       })
-      // all subcategories thunk
-      .addCase(allContactsThunk.pending, (state, { payload }) => {
+      // create subcategories thunk
+      .addCase(createCategoriesThunk.pending, (state, { payload }) => {
         state.isLoading = true
       })
-      .addCase(allContactsThunk.fulfilled, (state, { payload }) => {
+      .addCase(createCategoriesThunk.fulfilled, (state, { payload }) => {
+        addObjectInState(payload, state)
+        state.currentPage = state.currentPage + 1
+        state.isLoading = false
+      })
+      .addCase(createCategoriesThunk.rejected, (state, { payload }) => {
+        state.isLoading = false
+      })
+      // all subcategories thunk
+      .addCase(allCategoriesThunk.pending, (state, { payload }) => {
+        state.isLoading = true
+      })
+      .addCase(allCategoriesThunk.fulfilled, (state, { payload }) => {
         state.list = payload.result
         state.nbHits = payload.nbHits
         state.isLoading = false
       })
-      .addCase(allContactsThunk.rejected, (state, { payload }) => {
+      .addCase(allCategoriesThunk.rejected, (state, { payload }) => {
         state.isLoading = false
       })
       // single subcategories thunk
-      .addCase(singleContactThunk.pending, (state, { payload }) => {
+      .addCase(singleCategoriesThunk.pending, (state, { payload }) => {
         state.isLoading = true
       })
-      .addCase(singleContactThunk.fulfilled, (state, { payload }) => {
+      .addCase(singleCategoriesThunk.fulfilled, (state, { payload }) => {
         addObjectInState(payload, state)
         state.singlePageError = ''
         state.isLoading = false
       })
-      .addCase(singleContactThunk.rejected, (state, { payload }) => {
+      .addCase(singleCategoriesThunk.rejected, (state, { payload }) => {
         state.singlePageError = payload
         state.isLoading = false
       })
       // update subcategories thunk
-      .addCase(updateContactThunk.pending, (state, { payload }) => {
+      .addCase(updateCategoriesThunk.pending, (state, { payload }) => {
         state.editLoading = true
       })
-      .addCase(updateContactThunk.fulfilled, (state, { payload }) => {
-        state.edit = true
+      .addCase(updateCategoriesThunk.fulfilled, (state, { payload }) => {
+        if (state.currentPage === 1) {
+          // Do nothing if the current page is 1
+        } else {
+          state.currentPage = state.currentPage + 1
+        }
         state.editLoading = false
       })
-      .addCase(updateContactThunk.rejected, (state, { payload }) => {
+      .addCase(updateCategoriesThunk.rejected, (state, { payload }) => {
         state.editLoading = false
       })
   },
