@@ -7,7 +7,7 @@ import {
 import { customFetch } from '@/lib/axios/customFetch'
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons'
 import { App, Button, Modal, Upload } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
@@ -55,7 +55,7 @@ const ImageComponent = () => {
     name: 'file',
     action: `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
     method: 'post', // Add method as POST
-    // multiple: true, // Enable multiple file uploads if needed
+    multiple: true, // Enable multiple file uploads if needed
 
     data: {
       upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_PRESET,
@@ -154,6 +154,9 @@ const ImageComponent = () => {
       </div>
     </div>
   )
+  useEffect(() => {
+    setState({ ...state, totalImages: images.length })
+  }, [images])
   return (
     <Wrapper>
       <Upload
@@ -163,7 +166,7 @@ const ImageComponent = () => {
         onPreview={handlePreview}
       >
         {/* Max limit is 1 */}
-        {images.length >= 1 ? null : uploadButton}
+        {state.totalImages >= 1 ? null : uploadButton}
       </Upload>
 
       <Modal
