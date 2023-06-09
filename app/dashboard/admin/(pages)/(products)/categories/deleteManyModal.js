@@ -20,7 +20,7 @@ export const DeleteManyModal = ({ record }) => {
           const response = await customFetch.post(
             '/authadmin/product/category/deletemany',
             {
-              _id: deleteMany,
+              _ids: deleteMany,
             }
           )
           notification.success({

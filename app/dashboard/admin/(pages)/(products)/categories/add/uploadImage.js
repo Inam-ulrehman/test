@@ -55,7 +55,7 @@ const UploadImage = () => {
     name: 'file',
     action: `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
     method: 'post', // Add method as POST
-    multiple: true, // Enable multiple file uploads if needed
+    // multiple: true, // Enable multiple file uploads if needed
 
     data: {
       upload_preset: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_PRESET,
@@ -80,6 +80,7 @@ const UploadImage = () => {
     },
     async onChange(info) {
       setState({ ...state, totalImages: info.fileList.length })
+      dispatch(getStateValues({ name: 'editLoading', value: true }))
       if (info.file.status !== 'uploading') {
         // console.log(info.file, info.fileList)
       }
@@ -157,12 +158,12 @@ const UploadImage = () => {
     <Wrapper>
       <Upload
         {...props}
-        maxCount={6}
+        maxCount={1}
         listType='picture-card'
         onPreview={handlePreview}
       >
-        {/* Max limit is 6 */}
-        {state.totalImages >= 6 ? null : uploadButton}
+        {/* Max limit is 1 */}
+        {state.totalImages >= 1 ? null : uploadButton}
       </Upload>
 
       <Modal
