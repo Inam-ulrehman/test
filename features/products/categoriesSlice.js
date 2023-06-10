@@ -40,7 +40,8 @@ export const categoriesThunk = createAsyncThunk(
 // static categories thunk
 export const staticCategoriesThunk = createAsyncThunk(
   'categories/staticCategoriesThunk',
-  async (_, thunkAPI) => {
+  async (values, thunkAPI) => {
+    const { notification } = values
     try {
       const response = await customFetch('/authadmin/product/category/static')
 
